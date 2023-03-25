@@ -21,7 +21,7 @@ public class APIFormatter {
 
         try {
             notes = Notes.fromHTML(payload); // try extracting array of nodes from html body
-        } catch (RuntimeException e) {
+        } catch (RuntimeException e) { // wont break because i haven't updated the fromHTML - sid
             System.out.println(e);
             return Response.status(400)
                     .entity("Bad data passed to API")
@@ -30,6 +30,7 @@ public class APIFormatter {
 
         String response = FileFormatter.toJSON(notes); // create a string json in file formatter
 
+        // send a json back to the server
         return Response.status(200)
                 .entity(response)
                 .build();
