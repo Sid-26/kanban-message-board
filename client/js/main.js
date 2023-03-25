@@ -1,7 +1,7 @@
 function post_to_server(endpoint, contentType) {
 
     // setting the url
-    const url = "http://localhost:8080/lab6-1.0/api/format/" + endpoint;
+    const url = "http://localhost:8080/api-1.0-SNAPSHOT/api/format/" + endpoint;
 
     // getting the payload
     const payload = document.getElementById("chart").innerHTML;
