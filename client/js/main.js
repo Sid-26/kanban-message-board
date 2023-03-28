@@ -30,6 +30,7 @@ function post_to_server(endpoint, contentType) {
         if (request.status !== 200) {
             console.log(request.responseText);
             console.error("Something went wrong went contacting the server");
+            console.log("Received from the server: ", request.responseText)
             return
         }
         console.log("Received from the server: ", request.responseText) // this contains the received payload
