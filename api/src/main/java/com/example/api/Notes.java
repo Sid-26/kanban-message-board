@@ -11,8 +11,7 @@ public class Notes {
         this.id = id;
         this.body = body;
     }
-    @POST
-    @Consumes("text/plain")
+
     public static Notes[] fromHTML(String payload) {
         // to do (WIP)
         Notes[] notes = new Notes[1];
