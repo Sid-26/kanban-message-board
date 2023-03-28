@@ -1,8 +1,5 @@
 package com.example.api;
 
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.POST;
-
 public class Notes {
     private int id;
     private String body;
@@ -11,8 +8,7 @@ public class Notes {
         this.id = id;
         this.body = body;
     }
-    @POST
-    @Consumes("text/plain")
+
     public static Notes[] fromHTML(String payload) {
         // to do (WIP)
         Notes[] notes = new Notes[1];

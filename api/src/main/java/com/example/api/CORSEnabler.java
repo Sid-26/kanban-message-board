@@ -1,3 +1,7 @@
+/**
+ * Source: Mariana Shimabukuro, from course assignment boilerplate
+ * */
+
 package com.example.api;
 
 import jakarta.annotation.Priority;
