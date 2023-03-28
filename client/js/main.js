@@ -1,3 +1,16 @@
+const socketUrl = "ws://localhost:8080/api-1.0-SNAPSHOT/"
+// Create WebSocket connection.
+const socket = new WebSocket(socketUrl);
+
+// Connection opened
+socket.addEventListener("open", (event) => {
+    socket.send("Hello Server!");
+});
+
+// Listen for messages
+socket.addEventListener("message", (event) => {
+    console.log("Message from server ", event.data);
+});
 function post_to_server(endpoint, contentType) {
 
     // setting the url

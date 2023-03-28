@@ -1,8 +1,5 @@
 package com.example.api;
 
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.POST;
-
 public class Notes {
     private int id;
     private String body;
