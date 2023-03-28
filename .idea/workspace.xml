@@ -10,12 +10,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="00ee0bda-a821-462f-9515-562dd1fd6bf2" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/js/sockets.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/src/main/java/com/example/api/APIFormatter.java" beforeDir="false" afterPath="$PROJECT_DIR$/api/src/main/java/com/example/api/APIFormatter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/src/main/java/com/example/api/Notes.java" beforeDir="false" afterPath="$PROJECT_DIR$/api/src/main/java/com/example/api/Notes.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/js/main.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,9 +23,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
-        <option value="JavaScript File" />
         <option value="CSS File" />
         <option value="Class" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -94,7 +91,7 @@
       <recent name="com.example.api" />
     </key>
   </component>
-  <component name="RunManager" selected="GlassFish Server.GlassFish 7.0.0">
+  <component name="RunManager" selected="JavaScript Debug.home.html">
     <configuration name="GlassFish 7.0.0" type="GlassfishConfiguration" factoryName="Local" APPLICATION_SERVER_NAME="GlassFish 7.0.0" ALTERNATIVE_JRE_ENABLED="false">
       <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/api-1.0-SNAPSHOT/api/hello-world" />
       <deployment>
@@ -191,7 +188,7 @@
       <workItem from="1679532295410" duration="1454000" />
       <workItem from="1679703225791" duration="74000" />
       <workItem from="1679703335946" duration="112000" />
-      <workItem from="1679703462681" duration="10524000" />
+      <workItem from="1679703462681" duration="14619000" />
     </task>
     <servers />
   </component>
