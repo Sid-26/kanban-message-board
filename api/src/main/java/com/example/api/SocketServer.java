@@ -8,7 +8,7 @@ import java.io.IOException;
 public class SocketServer {
     @OnOpen
     public void open(Session session) throws IOException {
-        session.getBasicRemote().sendText("it worked bro");
+        session.getBasicRemote().sendText("{\"id\":\""+session.getId()+"\"}");
     }
 
     @OnClose

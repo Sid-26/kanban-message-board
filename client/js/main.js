@@ -1,4 +1,4 @@
-const socketUrl = "ws://localhost:8080/api-1.0-SNAPSHOT/"
+const socketUrl = "ws://localhost:8080/api-1.0-SNAPSHOT/ws"
 // Create WebSocket connection.
 const socket = new WebSocket(socketUrl);
 
