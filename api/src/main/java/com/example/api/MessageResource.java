@@ -11,4 +11,6 @@ public class MessageResource {
     public String hello() {
         return "Hello, World!";
     }
+
+
 }

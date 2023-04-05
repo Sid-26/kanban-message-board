@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello world!</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/main.js" defer></script>
+    <script src="js/sockets.js" defer></script>
+</head>
+<body>
+  <h1>Hello friend, HTML page is up</h1>
+<div>
+    <table id = "chart">
+        <tr>
+            <td>
+                <label for="input">Enter text:</label>
+                <input type="text" name="input" id="input">
+                <button id="submit-btn" onclick="post_to_server('json', 'application/json')">Submit</button>
+            </td>
+        </tr>
+    </table>
+</div>
+<div>
+<textarea id="record" name="record" rows="10" cols="100"></textarea>
+<input type="submit" id="submit-btn-record">
+</div>
+</body>
+</html>
