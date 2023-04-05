@@ -1,0 +1,73 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+.board-layout {
+    background-color: rgb(100, 92, 165);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    display: grid;
+    grid-template-rows: max-content auto;
+    grid-gap: 10px;
+    padding: 10px;
+    height: 800px;
+}
+.board-text {
+    font-weight: bold;
+    font-size: 28px;
+    padding: 5px;
+}
+.cards-container {
+    display: grid;
+    grid-auto-columns: 275px;
+    grid-auto-flow: column;
+    grid-gap: 10px;
+    height: 400px;
+}
+
+.card {
+    background-color: #fff;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.card-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+/* Add a card button styles */
+#add-card-btn {
+    display: block;
+    width: 275px;
+    height: 50px;
+    border: none;
+    background-color: #ddd;
+    color: #333;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.card-title-input {
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    width: 100%;
+    margin-bottom: 5px;
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+.card-title-submit-btn {
+    display: block;
+    width: 100px;
+    height: 40px;
+    border: none;
+    background-color: #5aac44;
+    color: #fff;
+    border-radius: 3px;
+    cursor: pointer;
+}
