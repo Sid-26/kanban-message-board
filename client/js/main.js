@@ -120,11 +120,13 @@ addCardBtn.addEventListener('click', () => {
         // Create the message card
         const messageCard = document.createElement('div');
         messageCard.className = 'message-card';
-        messageCard.style.backgroundColor = 'white';
+        messageCard.style.backgroundColor = '#60aeff';
+        messageCard.style.display = 'block';
         messageCard.style.borderRadius = '3px';
         messageCard.style.boxShadow = '0 1px 0 rgba(9,30,66,.25)';
         messageCard.style.padding = '10px';
         messageCard.style.cursor = 'pointer';
+        messageCard.style.marginBottom = '10px';
         messageCard.appendChild(messageInput);
         messageCard.appendChild(messageSubmitBtn);
 
