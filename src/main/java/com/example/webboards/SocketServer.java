@@ -1,4 +1,4 @@
-package com.example.api;
+package com.example.webboards;
 import jakarta.websocket.*;
 import jakarta.websocket.server.ServerEndpoint;
 
