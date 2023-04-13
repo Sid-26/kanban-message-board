@@ -3,38 +3,35 @@ const socketUrl = "ws://localhost:8080/api-1.0-SNAPSHOT/"
 const socket = new WebSocket(socketUrl);
 
 // Login handler
-function login(username, password) {
-    const url = "http://localhost:8080/api-1.0-SNAPSHOT/login-servlet"
+function login() {
+    // get form data
+    const formData = {
+        user: document.getElementById('username').value,
+        pwd: document.getElementById('password').value
+    };
 
-    // let json = {"room": roomID, "type": "chat", "msg": input.value};
-    let json = {"user": username, "pwd": password};
-    const request = new XMLHttpRequest();
-    request.open("POST", url);                              // setting the method
-    request.setRequestHeader("Content-Type", "application/json");  // setting the sending content-type
-    request.setRequestHeader("Accept", "application/json");        // setting the receiving content-type
-
-    // sending the payload to the server
-    request.send(json);
-
-    // on response handler
-    request.onload = () => {
-        if (request.status !== 200) {
-            console.log(request.responseText);
-            console.error("Something went wrong went contacting the server");
-            console.log("Received from the server: ", request.responseText)
-            return
-        }
-        console.log("Received from the server: ", request.responseText);
-
-        const loggedin = request.responseText.loginStatus;
-
-        if (loggedin) {
-            console.log("Log in success");
-        } else {
-            console.log("Log in fail");
-        }
-    }
-
+    // make API call
+    fetch('/login-servlet', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+        .then(response => response.json())
+        .then(data => {
+            // check login status and display appropriate message
+            if (data.loginStatus) {
+                // redirect to home page
+                window.location.href = '/index.html';
+            } else {
+                alert('Invalid username or password');
+            }
+        })
+        .catch(error => {
+            console.error('Error during login:', error);
+            alert('An error occurred during login');
+        });
 }
 // Connection opened
 socket.addEventListener("open", (event) => {
