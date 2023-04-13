@@ -2,6 +2,40 @@ const socketUrl = "ws://localhost:8080/api-1.0-SNAPSHOT/"
 // Create WebSocket connection.
 const socket = new WebSocket(socketUrl);
 
+// Login handler
+function login(username, password) {
+    const url = "http://localhost:8080/api-1.0-SNAPSHOT/login-servlet"
+
+    // let json = {"room": roomID, "type": "chat", "msg": input.value};
+    let json = {"user": username, "pwd": password};
+    const request = new XMLHttpRequest();
+    request.open("POST", url);                              // setting the method
+    request.setRequestHeader("Content-Type", "application/json");  // setting the sending content-type
+    request.setRequestHeader("Accept", "application/json");        // setting the receiving content-type
+
+    // sending the payload to the server
+    request.send(json);
+
+    // on response handler
+    request.onload = () => {
+        if (request.status !== 200) {
+            console.log(request.responseText);
+            console.error("Something went wrong went contacting the server");
+            console.log("Received from the server: ", request.responseText)
+            return
+        }
+        console.log("Received from the server: ", request.responseText);
+
+        const loggedin = request.responseText.loginStatus;
+
+        if (loggedin) {
+            console.log("Log in success");
+        } else {
+            console.log("Log in fail");
+        }
+    }
+
+}
 // Connection opened
 socket.addEventListener("open", (event) => {
     socket.send("Hello Server!");
