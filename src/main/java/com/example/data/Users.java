@@ -1,4 +1,4 @@
-package com.example.api;
+package com.example.data;
 
 import java.util.ArrayList;
 import java.util.HashMap;

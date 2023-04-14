@@ -1,4 +1,4 @@
-package com.example.api;
+package com.example.webboards;
 
 public class Notes {
     private int id;
