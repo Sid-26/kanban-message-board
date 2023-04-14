@@ -28,7 +28,10 @@ public class Board {
         if(notesObj != null){
             for(int i = 0; i < notesObj.length(); i++){
                 JSONObject note = notesObj.getJSONObject(i);
-                notes.add(new Note(note.getString("title"),note.getString("text")));
+                notes.add(new Note(note.getString("title"),
+                        note.getString("text"),
+                        note.getString("creator")
+                ));
             }
         }
         return new Board(board.getString("title"),notes);
