@@ -2,6 +2,37 @@ const socketUrl = "ws://localhost:8080/api-1.0-SNAPSHOT/"
 // Create WebSocket connection.
 const socket = new WebSocket(socketUrl);
 
+// Login handler
+function login() {
+    // get form data
+    const formData = {
+        user: document.getElementById('username').value,
+        pwd: document.getElementById('password').value
+    };
+
+    // make API call
+    fetch('/login-servlet', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+        .then(response => response.json())
+        .then(data => {
+            // check login status and display appropriate message
+            if (data.loginStatus) {
+                // redirect to home page
+                window.location.href = '/index.html';
+            } else {
+                alert('Invalid username or password');
+            }
+        })
+        .catch(error => {
+            console.error('Error during login:', error);
+            alert('An error occurred during login');
+        });
+}
 // Connection opened
 socket.addEventListener("open", (event) => {
     socket.send("Hello Server!");
