@@ -32,6 +32,20 @@ public class SocketServer {
     @OnMessage
     public void message(String comm, Session session){
         JSONObject message = new JSONObject(comm);
+        String type = message.getString("type");
+        String response;
+        switch(type){
+            // Create new note
+            case "new-note":
+
+        }
+
         String task = message.get("type").toString();
+    }
+
+    public void messageAll(Session session,String message) throws IOException {
+        for(Session peer : session.getOpenSessions()){
+            peer.getBasicRemote().sendText(message);
+        }
     }
 }
