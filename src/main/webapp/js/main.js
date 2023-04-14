@@ -24,6 +24,7 @@ function login() {
             if (data.loginStatus) {
                 // redirect to home page
                 window.location.href = '/index.html';
+
             } else {
                 alert('Invalid username or password');
             }
@@ -31,6 +32,36 @@ function login() {
         .catch(error => {
             console.error('Error during login:', error);
             alert('An error occurred during login');
+        });
+}
+
+function signup() {
+    // get form data
+    const formData = {
+        user: document.getElementById('username').value,
+        pwd: document.getElementById('password').value
+    };
+
+    // make API call
+    fetch('/signup-servlet', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+        .then(response => response.json())
+        .then(data => {
+            // check login status and display appropriate message
+            if (data.success) {
+                alert('Signup successful!');
+            } else {
+                alert('Signup failed');
+            }
+        })
+        .catch(error => {
+            console.error('Error during signup:', error);
+            alert('An error occurred during signup');
         });
 }
 // Connection opened

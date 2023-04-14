@@ -45,7 +45,7 @@ public class LoginServlet extends HttpServlet {
         String username = (String) obj.get("user");
         String password = (String) obj.get("pwd");
         // to do create a Users class
-        boolean loggedin = Users.isValid(username,password);
+        boolean loggedin = Users.isValid(username, password);
 
         JSONObject jsonResponse = new JSONObject();
         jsonResponse.put("loginStatus",loggedin);
