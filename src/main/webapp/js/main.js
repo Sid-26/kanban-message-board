@@ -1,6 +1,7 @@
 const socketUrl = "ws://localhost:8080/api-1.0-SNAPSHOT/"
 // Create WebSocket connection.
-const socket = new WebSocket(socketUrl);
+let socket;
+// const socket = new WebSocket(socketUrl);
 
 // Login handler
 function login() {
@@ -22,9 +23,10 @@ function login() {
         .then(data => {
             // check login status and display appropriate message
             if (data.loginStatus) {
+                // open the socket
+                socket = new WebSocket(socketUrl);
                 // redirect to home page
                 window.location.href = '/index.html';
-
             } else {
                 alert('Invalid username or password');
             }
@@ -55,6 +57,10 @@ function signup() {
             // check login status and display appropriate message
             if (data.success) {
                 alert('Signup successful!');
+                // open the socket
+                socket = new WebSocket(socketUrl);
+                // redirect to page
+
             } else {
                 alert('Signup failed');
             }
