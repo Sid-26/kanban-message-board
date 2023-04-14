@@ -12,7 +12,7 @@ html, body {
     grid-gap: 10px;
     padding: 10px;
     height: 800px;
-    overflow-x: auto;
+    overflow: auto;
 
 }
 .board-text {
