@@ -13,7 +13,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet(name = "loginServlet", value = "/login-servlet")
+@WebServlet(name = "signupServlet", value = "/signup-servlet")
 public class SignupServlet extends HttpServlet {
     public void doPOST(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("application/json");
