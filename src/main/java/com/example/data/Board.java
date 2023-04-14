@@ -21,7 +21,7 @@ public class Board {
      * @param resourceFile
      * @return
      */
-    public static Board loadBoard(String boardId, String resourceFile){
+    public static Board loadBoard(String resourceFile, String boardId){
         JSONObject board = new JSONObject(Loader.load(resourceFile)).getJSONObject(boardId);
         JSONArray notesObj = board.getJSONArray("notes");
         ArrayList<Note> notes = new ArrayList<>();

@@ -1,10 +1,10 @@
-package com.example.api;
+package com.example.webboards;
+import com.example.data.Users;
 
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.ws.rs.ProcessingException;
 import org.json.HTTP;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,7 +27,7 @@ public class LoginServlet extends HttpServlet {
             while ((ln = read.readLine()) != null) {
                 buffer.append(ln);
             }
-        } catch (ProcessingException e) {
+        } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
