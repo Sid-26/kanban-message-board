@@ -7,9 +7,15 @@ public class Users {
         put("admin","admin");
     }};
 
-    public void createAccount(String username, String password) {
-        accounts.put(username,password);
+    public static boolean createAccount(String username, String password) throws RuntimeException {
+        if (!(username.equals("") || password.equals(""))) {
+            accounts.put(username, password);
+            return true;
+        } else {
+            throw new RuntimeException();
+        }
     }
+    // .get(username) = "pickachu", String password = pickachu, .get(username) = password
     public static boolean isValid(String username, String password) {
         return accounts.get(username).equals(password);
     }

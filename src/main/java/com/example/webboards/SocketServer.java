@@ -20,6 +20,7 @@ public class SocketServer {
     @OnOpen
     public void open(@PathParam("userId") String userId, Session session) throws IOException, URISyntaxException {
         users.put(session.getId(), userId);
+
         // Get all the user's boardIds and return them
         JSONObject resp = new JSONObject();
         JSONArray boardIds = (new JSONObject(Loader.load("users-boards.json")))
