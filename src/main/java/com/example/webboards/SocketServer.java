@@ -12,7 +12,9 @@ import java.util.Map;
 
 @ServerEndpoint(value="/ws/{userId}")
 public class SocketServer {
+    // session to userId
     private static Map<String,String> users = new HashMap<>();
+    private static Map<String,String> boards = new HashMap<>();
     @OnOpen
     public void open(@PathParam("userId") String userId, Session session) throws IOException, URISyntaxException {
         users.put(session.getId(), userId);
