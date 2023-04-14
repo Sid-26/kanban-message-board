@@ -2,16 +2,17 @@ package com.example.util;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import org.json.*;
 
 public class Board {
     String title;
-    List<Note> notes;
-    public Board(String title, List<Note> notes){
+    List<Card> cards;
+    public Board(String title, List<Card> cards){
         this.title = title;
-        this.notes = notes;
+        this.cards = cards;
     }
 
     /**
@@ -23,21 +24,29 @@ public class Board {
      */
     public static Board loadBoard(String resourceFile, String boardId){
         JSONObject board = new JSONObject(Loader.load(resourceFile)).getJSONObject(boardId);
-        JSONArray notesObj = board.getJSONArray("notes");
-        ArrayList<Note> notes = new ArrayList<>();
-        if(notesObj != null){
-            for(int i = 0; i < notesObj.length(); i++){
-                JSONObject note = notesObj.getJSONObject(i);
-                notes.add(new Note(note.getString("title"),
-                        note.getString("text"),
-                        note.getString("creator")
-                ));
+        return jsonToBoard(board);
+    }
+
+    public static Board jsonToBoard(JSONObject board){
+        JSONArray cardsObj = board.getJSONArray("cards");
+        ArrayList<Card> cards = new ArrayList<>();
+        if(cardsObj != null){
+            for(int i = 0; i < cardsObj.length(); i++){
+                JSONObject card = cardsObj.getJSONObject(i);
+                cards.add(Card.jsonToCard(card));
             }
         }
-        return new Board(board.getString("title"),notes);
+        return new Board(board.getString("title"), cards);
     }
 
     public static HashMap<String,Board> loadAllBoards(String resourceFile){
-
+        HashMap<String,Board> boards = new HashMap<>();
+        JSONObject boardsObj = new JSONObject(Loader.load(resourceFile));
+        Iterator<String> it = boardsObj.keys();
+        while(it.hasNext()){
+            String boardId = it.next();
+            boards.put(boardId,jsonToBoard(boardsObj.getJSONObject(boardId)));
+        }
+        return boards;
     }
 }

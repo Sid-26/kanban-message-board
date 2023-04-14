@@ -16,7 +16,7 @@ public class SocketServer {
     private static Map<String,String> users = new HashMap<>();
     // userId to boardId
     private static Map<String,String> usersBoards = new HashMap<>();
-    private static Map<String,Board> boards = Board.loadBoards("boards.json");
+    private static Map<String,Board> boards = Board.loadAllBoards("boards.json");
     @OnOpen
     public void open(@PathParam("userId") String userId, Session session) throws IOException, URISyntaxException {
         users.put(session.getId(), userId);
