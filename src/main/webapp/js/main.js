@@ -43,6 +43,16 @@ socket.addEventListener("message", (event) => {
     console.log("Message from server ", event.data);
 });
 
+function sendJSON(id) {
+    let input = document.getElementById(id);
+
+    let request = {"board": boardID, "type": "NOTE", "message":input.value};
+    requestJSON = JSON.stringify(request);
+    console.log(requestJSON);
+    socket.send(requestJSON);
+    input.value = "";
+}
+
 const cardsContainer = document.querySelector('.cards-container');
 const addCardBtn = document.querySelector('#add-card-btn');
 
@@ -50,18 +60,23 @@ addCardBtn.addEventListener('click', () => {
     // Create a new card
     const newCard = document.createElement('div');
     newCard.className = 'card';
+    newCard.id = 'title';
 
     // Create the card title input
     const cardTitleInput = document.createElement('input');
     cardTitleInput.type = 'text';
     cardTitleInput.placeholder = 'Add a title...';
-    cardTitleInput.className = 'card-title-input';
+    cardTitleInput.id = 'title';
 
     // Create the card title submit button
     const cardTitleSubmitBtn = document.createElement('button');
     cardTitleSubmitBtn.type = 'button';
     cardTitleSubmitBtn.textContent = 'Submit';
     cardTitleSubmitBtn.className = 'card-title-submit-btn';
+    cardTitleSubmitBtn.onclick = function() {
+        sendJSON('title');
+    };
+
 
     // Append the card title input and submit button to the new card
     newCard.appendChild(cardTitleInput);
