@@ -23,7 +23,7 @@ function login() {
             // check login status and display appropriate message
             if (data.loginStatus) {
                 // redirect to home page
-                window.location.href = '/index.html';
+                window.location.href = '/home.html';
             } else {
                 alert('Invalid username or password');
             }

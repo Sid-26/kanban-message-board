@@ -1,7 +1,7 @@
-package com.example.data;
+package com.example.util;
 
-import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.json.*;
@@ -35,5 +35,9 @@ public class Board {
             }
         }
         return new Board(board.getString("title"),notes);
+    }
+
+    public static HashMap<String,Board> loadAllBoards(String resourceFile){
+
     }
 }

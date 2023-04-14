@@ -1,4 +1,4 @@
-package com.example.data;
+package com.example.util;
 
 public class Note {
     String title;

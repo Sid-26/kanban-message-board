@@ -3,7 +3,7 @@ import jakarta.websocket.*;
 import jakarta.websocket.server.PathParam;
 import jakarta.websocket.server.ServerEndpoint;
 import org.json.*;
-import com.example.data.*;
+import com.example.util.*;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -14,7 +14,9 @@ import java.util.Map;
 public class SocketServer {
     // session to userId
     private static Map<String,String> users = new HashMap<>();
-    private static Map<String,String> boards = new HashMap<>();
+    // userId to boardId
+    private static Map<String,String> usersBoards = new HashMap<>();
+    private static Map<String,Board> boards = Board.loadBoards("boards.json");
     @OnOpen
     public void open(@PathParam("userId") String userId, Session session) throws IOException, URISyntaxException {
         users.put(session.getId(), userId);
@@ -39,6 +41,7 @@ public class SocketServer {
         switch(type){
             // Create new note
             case "new-note":
+
 
         }
 
