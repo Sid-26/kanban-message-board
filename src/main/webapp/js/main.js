@@ -1,43 +1,3 @@
-function post_to_server(endpoint, contentType) {
-
-    // setting the url
-    const url = "http://localhost:8080/api-1.0-SNAPSHOT/api/format/" + endpoint;
-
-    // getting the payload
-    const payload = document.getElementById("chart").innerHTML;
-
-    /// creating a response to the server
-    const request = new XMLHttpRequest();
-    request.open("POST", url);                              // setting the method
-    request.setRequestHeader("Content-Type", "text/html");  // setting the sending content-type
-    request.setRequestHeader("Accept", contentType);        // setting the receiving content-type
-
-    // on response handler
-    request.onload = () => {
-        if (request.status !== 200) {
-            console.log(request.responseText);
-            console.error("Something went wrong went contacting the server");
-            console.log("Received from the server: ", request.responseText)
-            return
-        }
-        console.log("Received from the server: ", request.responseText) // this contains the received payload
-
-        /**
-         * this is how to programmatically download something in javascript.
-         * 1. create an invisible anchor tag
-         * 2. set the href attribute (contains file data)
-         * 3. set the download attribute (contains the file name)
-         * 4. click it
-         */
-        var element = document.createElement('a');
-        element.setAttribute('href', `data:${contentType};charset=utf-8,` + encodeURIComponent(request.responseText));
-        element.setAttribute('download', `students.${endpoint}`);
-        element.click();
-    }
-
-    // sending the payload to the server
-    request.send(payload);
-}
 const cardsContainer = document.querySelector('.cards-container');
 const addCardBtn = document.querySelector('#add-card-btn');
 
@@ -45,18 +5,20 @@ addCardBtn.addEventListener('click', () => {
     // Create a new card
     const newCard = document.createElement('div');
     newCard.className = 'card';
+    newCard.id = 'title';
 
     // Create the card title input
     const cardTitleInput = document.createElement('input');
     cardTitleInput.type = 'text';
     cardTitleInput.placeholder = 'Add a title...';
-    cardTitleInput.className = 'card-title-input';
+    cardTitleInput.id = 'title';
 
     // Create the card title submit button
     const cardTitleSubmitBtn = document.createElement('button');
     cardTitleSubmitBtn.type = 'button';
     cardTitleSubmitBtn.textContent = 'Submit';
     cardTitleSubmitBtn.className = 'card-title-submit-btn';
+
 
     // Append the card title input and submit button to the new card
     newCard.appendChild(cardTitleInput);
@@ -76,13 +38,24 @@ addCardBtn.addEventListener('click', () => {
 
     // When the user clicks the submit button or presses Enter, create the card title
     const createCardTitle = () => {
+        // Check if the title input is empty
+        if (cardTitleInput.value.trim() === '') {
+            cardTitleInput.value = 'Empty Title';
+        }
+
+        // Create the card title
         const cardTitle = document.createElement('div');
         cardTitle.className = 'card-title';
         cardTitle.textContent = cardTitleInput.value;
+
+        // Insert the card title into the new card
         newCard.insertBefore(cardTitle, cardTitleInput);
+
+        // Remove the title input and submit button
         newCard.removeChild(cardTitleInput);
         newCard.removeChild(cardTitleSubmitBtn);
     };
+
     cardTitleSubmitBtn.addEventListener('click', createCardTitle);
     cardTitleInput.addEventListener('keyup', (event) => {
         if (event.key === 'Enter') {
@@ -125,14 +98,24 @@ addCardBtn.addEventListener('click', () => {
 
         // When the user clicks the message submit button or presses Enter, create the message
         const createMessage = () => {
+            // Check if the message input is empty
+            if (messageInput.value.trim() === '') {
+                messageInput.value = 'Empty Message';
+            }
+
+            // Create the message element
             const message = document.createElement('div');
             message.className = 'message';
-
             message.textContent = messageInput.value;
+
+            // Insert the message into the message card
             messageCard.insertBefore(message, messageInput);
+
+            // Remove the message input and submit button
             messageCard.removeChild(messageInput);
             messageCard.removeChild(messageSubmitBtn);
         };
+
         messageSubmitBtn.addEventListener('click', createMessage);
         messageInput.addEventListener('keyup', (event) => {
             if (event.key === 'Enter') {

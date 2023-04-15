@@ -62,6 +62,6 @@ public class Board {
     }
 
     public ArrayList<Card> getCards() {
-        return this.cards;
+        return (ArrayList<Card>) this.cards;
     }
 }
