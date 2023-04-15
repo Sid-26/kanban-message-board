@@ -54,8 +54,12 @@ public class SocketServer {
             case "new-card":
                 singleBoard.addCard(Card.jsonToCard(message));
                 messageAll(session,message.toString());
-
-
+                break;
+            case "new-note":
+                singleBoard.getCards().get(message.getInt("card"))
+                        .addNote(new Note(message.getString("text"),message.getString("creator")));
+                messageAll(session, message.toString());
+                break;
         }
 
         String task = message.get("type").toString();
