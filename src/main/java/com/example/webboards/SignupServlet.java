@@ -38,7 +38,6 @@ public class SignupServlet extends HttpServlet {
         String password = obj.getString("pwd");
         // to do create a Users class
         boolean success = false;
-
         try {
             if (!(Users.getAccounts().containsKey(username))) {
                 success = Users.createAccount(username, password);
