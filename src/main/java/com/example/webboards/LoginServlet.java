@@ -20,7 +20,6 @@ public class LoginServlet extends HttpServlet {
 
         StringBuffer buffer = new StringBuffer();
         String ln = null;
-
         // processing post request json
         try {
             BufferedReader read = request.getReader();
@@ -34,18 +33,21 @@ public class LoginServlet extends HttpServlet {
         }
 
         // trying to make a json object
-        JSONObject obj;
-        try {
-            obj = HTTP.toJSONObject(buffer.toString());
-            System.out.println(obj.toString());
-        } catch (JSONException e) {
-            // death
-            e.printStackTrace();
-            throw new RuntimeException();
-        }
+
+//        JSONObject obj;
+//        try {
+//            obj = HTTP.toJSONObject(buffer.toString());
+//            System.out.println(obj.toString());
+//        } catch (JSONException e) {
+//            // death
+//            e.printStackTrace();
+//            throw new RuntimeException();
+//        }
+
+        JSONObject obj = new JSONObject(buffer.toString());
         // json looks like {"user":"sid", "pwd": "ABC123"}
-        String username = (String) obj.get("user");
-        String password = (String) obj.get("pwd");
+        String username = obj.getString("user");
+        String password = obj.getString("pwd");
         // to do create a Users class
         boolean loggedin = Users.isValid(username, password);
 
