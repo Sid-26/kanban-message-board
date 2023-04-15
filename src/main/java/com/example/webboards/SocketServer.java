@@ -34,9 +34,8 @@ public class SocketServer {
 //        resp.put("boards",boardIds);
 //        session.getBasicRemote().sendText(resp.toString());
 
-        // return current state of board from file
-        JSONObject resp = new JSONObject().put("board",new JSONObject(Loader.load(boardsFile))
-                .getJSONObject(singleBoardId));
+        // return current state of board from file (single board)
+        JSONObject resp = new JSONObject().put("board",singleBoard.toJSON());
         session.getBasicRemote().sendText(resp.toString());
     }
 

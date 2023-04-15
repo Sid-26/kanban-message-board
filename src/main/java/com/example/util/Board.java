@@ -15,6 +15,13 @@ public class Board {
         this.cards = cards;
     }
 
+    public JSONObject toJSON(){
+        JSONObject board = new JSONObject();
+        board.put("title",this.title);
+        board.put("cards",new JSONArray(this.cards));
+        return board;
+    }
+
     /**
      * Given the boardId of a board and the name of the boards file in resources,
      * returns a new Board object containing the data in the file.
