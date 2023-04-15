@@ -60,4 +60,8 @@ public class Board {
         }
         return boards;
     }
+
+    public ArrayList<Card> getCards() {
+        return this.cards;
+    }
 }

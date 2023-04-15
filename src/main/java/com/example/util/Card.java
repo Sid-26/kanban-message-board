@@ -26,4 +26,8 @@ public class Card {
                 notes,
                 card.getString("creator"));
     }
+
+    public void addNote(Note note) {
+        this.notes.add(note);
+    }
 }
