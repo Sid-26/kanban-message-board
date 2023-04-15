@@ -29,8 +29,9 @@ function login() {
                 username = data.username;
                 // open the socket
                 socket = new WebSocket(socketUrl+`/${username}`);
+                setupSocket(socket);
                 // redirect to home page
-                window.location.href = '/home.html';
+                window.location.href = 'home.html';
             } else {
                 alert('Invalid username or password');
             }
@@ -65,8 +66,9 @@ function signup() {
                 username = data.username;
                 // open the socket
                 socket = new WebSocket(socketUrl+`/${username}`);
+                setupSocket(socket);
                 // redirect to page
-                window.location.href = '/home.html';
+                window.location.href = 'home.html';
             } else {
                 alert('Signup failed');
             }
@@ -76,29 +78,32 @@ function signup() {
             // alert('An error occurred during signup');
         });
 }
-// Connection opened
-socket.addEventListener("open", (event) => {
-    console.log(event);
-});
+function setupSocket(socket){
+    // Connection opened
+    socket.addEventListener("open", (event) => {
+        console.log(event);
+    });
 
 // Listen for messages (work in progress)
-socket.addEventListener("message", (event) => {
-    console.log(event.data)
-    switch(event.data.type){
-        case "new-card":
-            addCard(event.data.title);
-            break;
-        case "delete-card":
-            removeCard(event.data.position);
-            break;
-        case "new-note":
-            addNote(event.data.position,event.data.card);
-            break;
-        case "delete-note":
-            removeNote(pos,cardPos);
-            break;
-    }
-});
+    socket.addEventListener("message", (event) => {
+        console.log(event.data)
+        switch(event.data.type){
+            case "new-card":
+                addCard(event.data.title);
+                break;
+            case "delete-card":
+                removeCard(event.data.position);
+                break;
+            case "new-note":
+                addNote(event.data.position,event.data.card);
+                break;
+            case "delete-note":
+                removeNote(pos,cardPos);
+                break;
+        }
+    });
+}
+
 
 function addCard(title){
 
