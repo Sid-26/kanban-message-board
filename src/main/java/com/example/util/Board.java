@@ -15,6 +15,10 @@ public class Board {
         this.cards = cards;
     }
 
+    public void addCard(Card card){
+        this.cards.add(card);
+    }
+
     public JSONObject toJSON(){
         JSONObject board = new JSONObject();
         board.put("title",this.title);
