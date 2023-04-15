@@ -17,7 +17,11 @@ public class Users {
     }
     // .get(username) = "pickachu", String password = pickachu, .get(username) = password
     public static boolean isValid(String username, String password) {
-        return accounts.get(username).equals(password);
+        String pwd = accounts.get(username);
+        if(pwd == null){
+            return false;
+        }
+        return pwd.equals(password);
     }
 
     public static HashMap<String, String> getAccounts() {

@@ -4,7 +4,7 @@ const addCardBtn = document.querySelector('#add-card-btn');
 /**
  * @param socket {WebSocket}
  * */
-function setupAddCardBtn(socket) {
+function setupAddCardBtn() {
     if(socket === undefined){
         console.error("No socket connection has been made: "+socket);
     }

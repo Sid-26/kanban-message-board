@@ -19,7 +19,7 @@ public class SignupServlet extends HttpServlet {
         response.setContentType("application/json");
 
         StringBuffer buffer = new StringBuffer();
-        String ln = null;
+        String ln;
         // processing post request json
         try {
             BufferedReader read = request.getReader();

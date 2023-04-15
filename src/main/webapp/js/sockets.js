@@ -12,7 +12,7 @@ function login() {
         "user": document.getElementById('username').value,
         "pwd": document.getElementById('password').value
     };
-
+    console.log(JSON.stringify(formData));
     // make API call
     fetch(baseUrl+'/login-servlet', {
         method: 'POST',
@@ -30,9 +30,9 @@ function login() {
                 // redirect to home page
                 window.localStorage.setItem("username",username);
                 window.location.href = 'home.html';
-                // open the socket
-                socket = new WebSocket(socketUrl+`/${username}`);
-                setupSocket(socket);
+                // // open the socket
+                // socket = new WebSocket(socketUrl+`/${username}`);
+                // setupSocket(socket);
 
             } else {
                 alert('Invalid username or password');

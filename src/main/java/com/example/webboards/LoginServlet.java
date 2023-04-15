@@ -15,6 +15,7 @@ import java.io.PrintWriter;
 
 @WebServlet(name = "loginServlet", value = "/login-servlet")
 public class LoginServlet extends HttpServlet {
+    @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("application/json");
 
@@ -49,7 +50,13 @@ public class LoginServlet extends HttpServlet {
         String username = obj.getString("user");
         String password = obj.getString("pwd");
         // to do create a Users class
-        boolean loggedin = Users.isValid(username, password);
+        boolean loggedin = false;
+        try{
+            loggedin = Users.isValid(username, password);
+        } catch(RuntimeException e){
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
 
         JSONObject jsonResponse = new JSONObject();
         jsonResponse.put("loginStatus",loggedin);
