@@ -59,6 +59,7 @@ public class SignupServlet extends HttpServlet {
         }
         JSONObject jsonResponse = new JSONObject();
         jsonResponse.put("success",success);
+        jsonResponse.put("username",username);
 
         // sending json response back to client
         PrintWriter out = response.getWriter();

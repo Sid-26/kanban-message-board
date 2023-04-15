@@ -48,7 +48,6 @@ public class SocketServer {
     public void message(String comm, Session session) throws IOException {
         JSONObject message = new JSONObject(comm);
         String type = message.getString("type");
-        String response;
         switch(type){
             // Create new card
             case "new-card":

@@ -54,6 +54,9 @@ addCardBtn.addEventListener('click', () => {
         // Remove the title input and submit button
         newCard.removeChild(cardTitleInput);
         newCard.removeChild(cardTitleSubmitBtn);
+
+        // Notify socket server
+        socket.send({"type":"new-card","title": cardTitle.textContent});
     };
 
     cardTitleSubmitBtn.addEventListener('click', createCardTitle);

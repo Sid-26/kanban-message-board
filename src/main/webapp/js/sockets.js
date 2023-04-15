@@ -1,7 +1,9 @@
 const socketUrl = "ws://localhost:8080/api-1.0-SNAPSHOT/ws"
+const baseUrl = "http://localhost:8080/webboards-1.0-SNAPSHOT"
 // Create WebSocket connection.
 let socket;
 // const socket = new WebSocket(socketUrl);
+let username;
 
 // Login handler
 function login() {
@@ -12,7 +14,7 @@ function login() {
     };
 
     // make API call
-    fetch('/login-servlet', {
+    fetch(baseUrl+'/login-servlet', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -23,8 +25,9 @@ function login() {
         .then(data => {
             // check login status and display appropriate message
             if (data.loginStatus) {
+                username = data.username;
                 // open the socket
-                socket = new WebSocket(socketUrl);
+                socket = new WebSocket(socketUrl+`/${username}`);
                 // redirect to home page
                 window.location.href = '/home.html';
             } else {
@@ -45,7 +48,7 @@ function signup() {
     };
 
     // make API call
-    fetch('/signup-servlet', {
+    fetch(baseUrl+'/signup-servlet', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -57,16 +60,17 @@ function signup() {
             // check login status and display appropriate message
             if (data.success) {
                 alert('Signup successful!');
+                username = data.username;
                 // open the socket
-                socket = new WebSocket(socketUrl);
+                socket = new WebSocket(socketUrl+`/${username}`);
                 // redirect to page
-
+                window.location.href = '/home.html';
             } else {
                 alert('Signup failed');
             }
         })
         .catch(error => {
-            console.error('Error during signup:', error);
+            console.log('Error during signup:', error);
             alert('An error occurred during signup');
         });
 }
@@ -75,8 +79,9 @@ socket.addEventListener("open", (event) => {
     console.log(event);
 });
 
-// Listen for messages
+// Listen for messages (work in progress)
 socket.addEventListener("message", (event) => {
+    console.log(event.data)
     switch(event.data.type){
         case "new-card":
             addCard(event.data.title);
@@ -85,7 +90,7 @@ socket.addEventListener("message", (event) => {
             removeCard(event.data.position);
             break;
         case "new-note":
-            addNote(title,cardPos);
+            addNote(event.data.position,event.data.card);
             break;
         case "delete-note":
             removeNote(pos,cardPos);

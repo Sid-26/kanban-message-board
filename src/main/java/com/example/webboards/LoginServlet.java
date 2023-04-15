@@ -49,6 +49,7 @@ public class LoginServlet extends HttpServlet {
 
         JSONObject jsonResponse = new JSONObject();
         jsonResponse.put("loginStatus",loggedin);
+        jsonResponse.put("username",username);
 
         // sending json response back to client
         PrintWriter out = response.getWriter();
