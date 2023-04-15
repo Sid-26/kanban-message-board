@@ -9,15 +9,16 @@ let username;
 function login() {
     // get form data
     const formData = {
-        user: document.getElementById('username').value,
-        pwd: document.getElementById('password').value
+        "user": document.getElementById('username').value,
+        "pwd": document.getElementById('password').value
     };
 
     // make API call
     fetch(baseUrl+'/login-servlet', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
         },
         body: JSON.stringify(formData)
     })
@@ -43,15 +44,16 @@ function login() {
 function signup() {
     // get form data
     const formData = {
-        user: document.getElementById('username').value,
-        pwd: document.getElementById('password').value
+        "user": document.getElementById('username').value,
+        "pwd": document.getElementById('password').value
     };
 
     // make API call
     fetch(baseUrl+'/signup-servlet', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
         },
         body: JSON.stringify(formData)
     })
@@ -71,7 +73,7 @@ function signup() {
         })
         .catch(error => {
             console.log('Error during signup:', error);
-            alert('An error occurred during signup');
+            // alert('An error occurred during signup');
         });
 }
 // Connection opened

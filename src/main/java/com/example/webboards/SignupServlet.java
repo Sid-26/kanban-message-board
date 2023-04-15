@@ -15,12 +15,11 @@ import java.io.PrintWriter;
 
 @WebServlet(name = "signupServlet", value = "/signup-servlet")
 public class SignupServlet extends HttpServlet {
-    public void doPOST(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("application/json");
 
         StringBuffer buffer = new StringBuffer();
         String ln = null;
-
         // processing post request json
         try {
             BufferedReader read = request.getReader();
@@ -31,27 +30,18 @@ public class SignupServlet extends HttpServlet {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
-
+        System.out.println(buffer);
         // trying to make a json object
-        JSONObject obj;
-        try {
-            obj = HTTP.toJSONObject(buffer.toString());
-        } catch (JSONException e) {
-            // death
-            e.printStackTrace();
-            throw new RuntimeException();
-        }
+        JSONObject obj = new JSONObject(buffer.toString());
         // json looks like {"user":"sid", "pwd": "ABC123"}
-        String username = (String) obj.get("user");
-        String password = (String) obj.get("pwd");
+        String username = obj.getString("user");
+        String password = obj.getString("pwd");
         // to do create a Users class
         boolean success = false;
 
         try {
             if (!(Users.getAccounts().containsKey(username))) {
                 success = Users.createAccount(username, password);
-            } else {
-                success = false;
             }
         } catch (RuntimeException e) {
             e.printStackTrace();
