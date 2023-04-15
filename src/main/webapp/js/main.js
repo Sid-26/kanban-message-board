@@ -25,8 +25,7 @@ function login() {
             if (data.loginStatus) {
                 // open the socket
                 socket = new WebSocket(socketUrl);
-                // redirect to home page
-                window.location.href = '/home.html';
+
             } else {
                 alert('Invalid username or password');
             }
@@ -41,9 +40,12 @@ function signup() {
     // get form data
     const formData = {
         user: document.getElementById('username').value,
-        pwd: document.getElementById('password').value
+        pwd: document.getElementById('password').value,
+        cpwd: document.getElementById('password-confirm').value
     };
-
+    if(formData.pwd !== formData.cpwd){
+        alert("Passwords don't match!");
+    }
     // make API call
     fetch('/signup-servlet', {
         method: 'POST',
@@ -59,8 +61,6 @@ function signup() {
                 alert('Signup successful!');
                 // open the socket
                 socket = new WebSocket(socketUrl);
-                // redirect to page
-
             } else {
                 alert('Signup failed');
             }
@@ -79,46 +79,17 @@ socket.addEventListener("open", (event) => {
 socket.addEventListener("message", (event) => {
     console.log("Message from server ", event.data);
 });
-function post_to_server(endpoint, contentType) {
 
-    // setting the url
-    const url = "http://localhost:8080/api-1.0-SNAPSHOT/api/format/" + endpoint;
+function sendJSON(id) {
+    let input = document.getElementById(id);
 
-    // getting the payload
-    const payload = document.getElementById("chart").innerHTML;
-
-    /// creating a response to the server
-    const request = new XMLHttpRequest();
-    request.open("POST", url);                              // setting the method
-    request.setRequestHeader("Content-Type", "text/html");  // setting the sending content-type
-    request.setRequestHeader("Accept", contentType);        // setting the receiving content-type
-
-    // on response handler
-    request.onload = () => {
-        if (request.status !== 200) {
-            console.log(request.responseText);
-            console.error("Something went wrong went contacting the server");
-            console.log("Received from the server: ", request.responseText)
-            return
-        }
-        console.log("Received from the server: ", request.responseText) // this contains the received payload
-
-        /**
-         * this is how to programmatically download something in javascript.
-         * 1. create an invisible anchor tag
-         * 2. set the href attribute (contains file data)
-         * 3. set the download attribute (contains the file name)
-         * 4. click it
-         */
-        var element = document.createElement('a');
-        element.setAttribute('href', `data:${contentType};charset=utf-8,` + encodeURIComponent(request.responseText));
-        element.setAttribute('download', `students.${endpoint}`);
-        element.click();
-    }
-
-    // sending the payload to the server
-    request.send(payload);
+    let request = {"board": boardID, "type": "NOTE", "message":input.value};
+    requestJSON = JSON.stringify(request);
+    console.log(requestJSON);
+    socket.send(requestJSON);
+    input.value = "";
 }
+
 const cardsContainer = document.querySelector('.cards-container');
 const addCardBtn = document.querySelector('#add-card-btn');
 
@@ -126,18 +97,23 @@ addCardBtn.addEventListener('click', () => {
     // Create a new card
     const newCard = document.createElement('div');
     newCard.className = 'card';
+    newCard.id = 'title';
 
     // Create the card title input
     const cardTitleInput = document.createElement('input');
     cardTitleInput.type = 'text';
     cardTitleInput.placeholder = 'Add a title...';
-    cardTitleInput.className = 'card-title-input';
+    cardTitleInput.id = 'title';
 
     // Create the card title submit button
     const cardTitleSubmitBtn = document.createElement('button');
     cardTitleSubmitBtn.type = 'button';
     cardTitleSubmitBtn.textContent = 'Submit';
     cardTitleSubmitBtn.className = 'card-title-submit-btn';
+    cardTitleSubmitBtn.onclick = function() {
+        sendJSON('title');
+    };
+
 
     // Append the card title input and submit button to the new card
     newCard.appendChild(cardTitleInput);

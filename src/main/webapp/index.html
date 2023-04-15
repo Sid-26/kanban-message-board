@@ -4,6 +4,9 @@
   <title>Sign Up Page</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <script src="js/main.js"></script>
+
   <style>
     /* Style the page layout */
     body {
@@ -47,7 +50,14 @@
   <input type="text" id="username" name="username" required>
   <label for="password">New Password:</label>
   <input type="password" id="password" name="password" required>
+
+  <label for="password-confirm">Confirm Password:</label>
+  <input type="password" id="password-confirm" name="password" required>
+  <input type="submit" onclick="signup()" value="Sign Up">
+  <h3>Already have an account? </h3><a href="signin.html">Sign in</a>
+
   <input type="submit" value="Sign Up">
+
 </form>
 </body>
 </html>
