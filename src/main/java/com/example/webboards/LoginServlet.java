@@ -1,5 +1,5 @@
 package com.example.webboards;
-import com.example.data.Users;
+import com.example.util.Users;
 
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;

@@ -25,6 +25,7 @@ function login() {
             if (data.loginStatus) {
                 // open the socket
                 socket = new WebSocket(socketUrl);
+
             } else {
                 alert('Invalid username or password');
             }
