@@ -19,4 +19,8 @@ public class Users {
     public static boolean isValid(String username, String password) {
         return accounts.get(username).equals(password);
     }
+
+    public static HashMap<String, String> getAccounts() {
+        return accounts;
+    }
 }
