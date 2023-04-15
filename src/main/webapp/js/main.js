@@ -19,10 +19,16 @@ addCardBtn.addEventListener('click', () => {
     cardTitleSubmitBtn.textContent = 'Submit';
     cardTitleSubmitBtn.className = 'card-title-submit-btn';
 
+    // Delete button
+    const deleteCardButton = document.createElement('button');
+    deleteCardButton.type = 'button';
+    deleteCardButton.className = 'add-message-btn';
+    deleteCardButton.textContent = 'Delete Card';
 
     // Append the card title input and submit button to the new card
     newCard.appendChild(cardTitleInput);
     newCard.appendChild(cardTitleSubmitBtn);
+    newCard.appendChild(deleteCardButton);
 
     // Add the "Add Message" button to the new card
     const addMessageBtn = document.createElement('button');
@@ -55,11 +61,21 @@ addCardBtn.addEventListener('click', () => {
         newCard.removeChild(cardTitleInput);
         newCard.removeChild(cardTitleSubmitBtn);
     };
+    const deleteCard = (event) => {
+        event.target.parentNode.remove();
+    };
+
 
     cardTitleSubmitBtn.addEventListener('click', createCardTitle);
     cardTitleInput.addEventListener('keyup', (event) => {
         if (event.key === 'Enter') {
             createCardTitle();
+        }
+    });
+    deleteCardButton.addEventListener('click', deleteCard);
+    deleteCardButton.addEventListener('keyup', (event) => {
+        if (event.key === 'Enter') {
+            deleteCard(event);
         }
     });
 
@@ -75,24 +91,23 @@ addCardBtn.addEventListener('click', () => {
         const messageSubmitBtn = document.createElement('button');
         messageSubmitBtn.type = 'button';
         messageSubmitBtn.textContent = 'Submit';
-        messageSubmitBtn.className = 'message-submit-btn';
+        messageSubmitBtn.className = 'add-message-btn';
+
+        // Create the message delete button
+        const messageDeleteBtn = document.createElement('button');
+        messageDeleteBtn.type = 'button';
+        messageDeleteBtn.textContent = 'Delete Message';
+        messageDeleteBtn.className = 'add-message-btn';
 
         // Create the message card
         const messageCard = document.createElement('div');
         messageCard.className = 'message-card';
-        messageCard.style.backgroundColor = '#60aeff';
-        messageCard.style.display = 'block';
-        messageCard.style.borderRadius = '3px';
-        messageCard.style.boxShadow = '0 1px 0 rgba(9,30,66,.25)';
-        messageCard.style.padding = '10px';
-        messageCard.style.cursor = 'pointer';
-        messageCard.style.marginBottom = '10px';
         messageCard.appendChild(messageInput);
         messageCard.appendChild(messageSubmitBtn);
+        messageCard.appendChild(messageDeleteBtn);
 
         // Add the message card to the card
         newCard.appendChild(messageCard);
-
         // Focus the message input box
         messageInput.focus();
 
@@ -120,6 +135,16 @@ addCardBtn.addEventListener('click', () => {
         messageInput.addEventListener('keyup', (event) => {
             if (event.key === 'Enter') {
                 createMessage();
+            }
+        });
+        const deleteMessage = (event) => {
+            event.target.parentNode.remove();
+        };
+
+        messageDeleteBtn.addEventListener('click', deleteMessage);
+        messageDeleteBtn.addEventListener('keyup', (event) => {
+            if (event.key === 'Enter') {
+                deleteMessage(event);
             }
         });
     });
