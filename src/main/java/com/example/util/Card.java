@@ -18,9 +18,12 @@ public class Card {
 
     public static Card jsonToCard(JSONObject card){
         ArrayList<Note> notes = new ArrayList<>();
-        JSONArray notesObj = card.getJSONArray("notes");
-        for(int i = 0; i < notesObj.length(); i++){
-            notes.add(Note.jsonToNote(notesObj.getJSONObject(i)));
+        // Check if the JSONObject has a list of notes
+        if(card.has("notes")){
+            JSONArray notesObj = card.getJSONArray("notes");
+            for(int i = 0; i < notesObj.length(); i++){
+                notes.add(Note.jsonToNote(notesObj.getJSONObject(i)));
+            }
         }
         return new Card(card.getString("title"),
                 notes,

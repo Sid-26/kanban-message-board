@@ -52,7 +52,7 @@ public class SocketServer {
         switch(type){
             // Create new note
             case "new-card":
-                singleBoard.addCard(Card.jsonToCard(message.));
+                singleBoard.addCard(Card.jsonToCard(message));
                 messageAll(session,message.toString());
 
 
