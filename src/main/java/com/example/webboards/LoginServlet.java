@@ -25,6 +25,7 @@ public class LoginServlet extends HttpServlet {
         try {
             BufferedReader read = request.getReader();
             while ((ln = read.readLine()) != null) {
+                System.out.println(ln);
                 buffer.append(ln);
             }
         } catch (IOException e) {
@@ -36,6 +37,7 @@ public class LoginServlet extends HttpServlet {
         JSONObject obj;
         try {
             obj = HTTP.toJSONObject(buffer.toString());
+            System.out.println(obj.toString());
         } catch (JSONException e) {
             // death
             e.printStackTrace();
@@ -50,7 +52,7 @@ public class LoginServlet extends HttpServlet {
         JSONObject jsonResponse = new JSONObject();
         jsonResponse.put("loginStatus",loggedin);
         jsonResponse.put("username",username);
-
+        System.out.println(jsonResponse);
         // sending json response back to client
         PrintWriter out = response.getWriter();
         out.print(jsonResponse);

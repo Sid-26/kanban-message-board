@@ -24,6 +24,7 @@ public class SignupServlet extends HttpServlet {
         try {
             BufferedReader read = request.getReader();
             while ((ln = read.readLine()) != null) {
+                System.out.println("ln = " + ln);
                 buffer.append(ln);
             }
         } catch (IOException e) {
@@ -33,6 +34,7 @@ public class SignupServlet extends HttpServlet {
         System.out.println(buffer);
         // trying to make a json object
         JSONObject obj = new JSONObject(buffer.toString());
+        System.out.println("json is " + obj);
         // json looks like {"user":"sid", "pwd": "ABC123"}
         String username = obj.getString("user");
         String password = obj.getString("pwd");
