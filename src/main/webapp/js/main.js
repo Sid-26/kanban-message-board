@@ -96,7 +96,6 @@ addCardBtn.addEventListener('click', () => {
     cardTitleInput.type = 'text';
     cardTitleInput.placeholder = 'Add a title...';
     cardTitleInput.id = 'title';
-    cardTitleInput.required = true;
 
     // Create the card title submit button
     const cardTitleSubmitBtn = document.createElement('button');
@@ -123,13 +122,24 @@ addCardBtn.addEventListener('click', () => {
 
     // When the user clicks the submit button or presses Enter, create the card title
     const createCardTitle = () => {
+        // Check if the title input is empty
+        if (cardTitleInput.value.trim() === '') {
+            cardTitleInput.value = 'Empty Title';
+        }
+
+        // Create the card title
         const cardTitle = document.createElement('div');
         cardTitle.className = 'card-title';
         cardTitle.textContent = cardTitleInput.value;
+
+        // Insert the card title into the new card
         newCard.insertBefore(cardTitle, cardTitleInput);
+
+        // Remove the title input and submit button
         newCard.removeChild(cardTitleInput);
         newCard.removeChild(cardTitleSubmitBtn);
     };
+
     cardTitleSubmitBtn.addEventListener('click', createCardTitle);
     cardTitleInput.addEventListener('keyup', (event) => {
         if (event.key === 'Enter') {
@@ -172,14 +182,24 @@ addCardBtn.addEventListener('click', () => {
 
         // When the user clicks the message submit button or presses Enter, create the message
         const createMessage = () => {
+            // Check if the message input is empty
+            if (messageInput.value.trim() === '') {
+                messageInput.value = 'Empty Message';
+            }
+
+            // Create the message element
             const message = document.createElement('div');
             message.className = 'message';
-
             message.textContent = messageInput.value;
+
+            // Insert the message into the message card
             messageCard.insertBefore(message, messageInput);
+
+            // Remove the message input and submit button
             messageCard.removeChild(messageInput);
             messageCard.removeChild(messageSubmitBtn);
         };
+
         messageSubmitBtn.addEventListener('click', createMessage);
         messageInput.addEventListener('keyup', (event) => {
             if (event.key === 'Enter') {
