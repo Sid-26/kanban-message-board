@@ -71,24 +71,16 @@ function signup() {
         });
 }
 // Connection opened
-socket.addEventListener("open", (event) => {
-    socket.send("Hello Server!");
-});
+// socket.addEventListener("open", (event) => {
+//     socket.send("Hello Server!");
+// });
 
 // Listen for messages
-socket.addEventListener("message", (event) => {
-    console.log("Message from server ", event.data);
-});
+// socket.addEventListener("message", (event) => {
+//     console.log("Message from server ", event.data);
+// });
 
-function sendJSON(id) {
-    let input = document.getElementById(id);
 
-    let request = {"board": boardID, "type": "NOTE", "message":input.value};
-    requestJSON = JSON.stringify(request);
-    console.log(requestJSON);
-    socket.send(requestJSON);
-    input.value = "";
-}
 
 const cardsContainer = document.querySelector('.cards-container');
 const addCardBtn = document.querySelector('#add-card-btn');
@@ -104,15 +96,13 @@ addCardBtn.addEventListener('click', () => {
     cardTitleInput.type = 'text';
     cardTitleInput.placeholder = 'Add a title...';
     cardTitleInput.id = 'title';
+    cardTitleInput.required = true;
 
     // Create the card title submit button
     const cardTitleSubmitBtn = document.createElement('button');
     cardTitleSubmitBtn.type = 'button';
     cardTitleSubmitBtn.textContent = 'Submit';
     cardTitleSubmitBtn.className = 'card-title-submit-btn';
-    cardTitleSubmitBtn.onclick = function() {
-        sendJSON('title');
-    };
 
 
     // Append the card title input and submit button to the new card
