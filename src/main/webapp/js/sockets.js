@@ -1,4 +1,4 @@
-const socketUrl = "ws://localhost:8080/api-1.0-SNAPSHOT/ws"
+const socketUrl = "ws://localhost:8080/webboards-1.0-SNAPSHOT/ws"
 const baseUrl = "http://localhost:8080/webboards-1.0-SNAPSHOT"
 // Create WebSocket connection.
 let socket;
@@ -27,11 +27,13 @@ function login() {
             // check login status and display appropriate message
             if (data.loginStatus) {
                 username = data.username;
+                // redirect to home page
+                window.localStorage.setItem("username",username);
+                window.location.href = 'home.html';
                 // open the socket
                 socket = new WebSocket(socketUrl+`/${username}`);
                 setupSocket(socket);
-                // redirect to home page
-                window.location.href = 'home.html';
+
             } else {
                 alert('Invalid username or password');
             }
@@ -64,11 +66,13 @@ function signup() {
             if (data.success) {
                 alert('Signup successful!');
                 username = data.username;
-                // open the socket
-                socket = new WebSocket(socketUrl+`/${username}`);
-                setupSocket(socket);
                 // redirect to page
+                window.localStorage.setItem("username",username);
                 window.location.href = 'home.html';
+                // // open the socket
+                // socket = new WebSocket(socketUrl+`/${username}`);
+                // console.log("Socket connection created: "+socket);
+                // setupSocket(socket);
             } else {
                 alert('Signup failed');
             }
@@ -78,7 +82,9 @@ function signup() {
             // alert('An error occurred during signup');
         });
 }
-function setupSocket(socket){
+function setupSocket(){
+    socket = new WebSocket(socketUrl+`/${window.localStorage.getItem("username")}`);
+
     // Connection opened
     socket.addEventListener("open", (event) => {
         console.log(event);
