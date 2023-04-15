@@ -30,4 +30,8 @@ public class Card {
     public void addNote(Note note) {
         this.notes.add(note);
     }
+
+    public void deleteNote(int index) {
+        this.notes.remove(index);
+    }
 }

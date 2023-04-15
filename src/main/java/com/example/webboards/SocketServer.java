@@ -50,19 +50,30 @@ public class SocketServer {
         String type = message.getString("type");
         String response;
         switch(type){
-            // Create new note
+            // Create new card
             case "new-card":
                 singleBoard.addCard(Card.jsonToCard(message));
                 messageAll(session,message.toString());
                 break;
+            // create new note
             case "new-note":
                 singleBoard.getCards().get(message.getInt("card"))
                         .addNote(new Note(message.getString("text"),message.getString("creator")));
                 messageAll(session, message.toString());
                 break;
+            // delete note with index
+            case "delete-note":
+                singleBoard.getCards().get(message.getInt("card")).deleteNote(message.getInt("note"));
+                messageAll(session, message.toString());
+                break;
+            // delete card with index
+            case "delete-card":
+                singleBoard.getCards().remove(message.getInt("card"));
+                messageAll(session, message.toString());
+                break;
+            default:
+                session.getBasicRemote().sendText("{\"type\":\"error\", \"text\":\"type not defined\"}");
         }
-
-        String task = message.get("type").toString();
     }
 
     public void messageAll(Session session,String message) throws IOException {
