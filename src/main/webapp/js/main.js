@@ -25,8 +25,6 @@ function login() {
             if (data.loginStatus) {
                 // open the socket
                 socket = new WebSocket(socketUrl);
-                // redirect to home page
-                window.location.href = '/index.html';
             } else {
                 alert('Invalid username or password');
             }
@@ -41,9 +39,12 @@ function signup() {
     // get form data
     const formData = {
         user: document.getElementById('username').value,
-        pwd: document.getElementById('password').value
+        pwd: document.getElementById('password').value,
+        cpwd: document.getElementById('password-confirm').value
     };
-
+    if(formData.pwd !== formData.cpwd){
+        alert("Passwords don't match!");
+    }
     // make API call
     fetch('/signup-servlet', {
         method: 'POST',
@@ -59,8 +60,6 @@ function signup() {
                 alert('Signup successful!');
                 // open the socket
                 socket = new WebSocket(socketUrl);
-                // redirect to page
-
             } else {
                 alert('Signup failed');
             }
