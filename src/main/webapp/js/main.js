@@ -26,7 +26,7 @@ function login() {
                 // open the socket
                 socket = new WebSocket(socketUrl);
                 // redirect to home page
-                window.location.href = '/index.html';
+                window.location.href = '/home.html';
             } else {
                 alert('Invalid username or password');
             }

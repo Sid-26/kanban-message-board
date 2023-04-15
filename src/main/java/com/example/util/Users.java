@@ -1,6 +1,5 @@
-package com.example.data;
+package com.example.util;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Users {
