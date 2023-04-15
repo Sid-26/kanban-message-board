@@ -48,7 +48,11 @@ public class SignupServlet extends HttpServlet {
         boolean success = false;
 
         try {
-            success = Users.createAccount(username, password);
+            if (!(Users.getAccounts().containsKey(username))) {
+                success = Users.createAccount(username, password);
+            } else {
+                success = false;
+            }
         } catch (RuntimeException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
