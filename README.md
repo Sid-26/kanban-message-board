@@ -22,6 +22,10 @@
 8. An HTML webpage will be loaded on your browser with the URL: <http://localhost:8080/webboards-1.0-SNAPSHOT/>
 
 ## How to use
+You will have to sign up by typing in a new username and password.
 ![signup.png](signup.png)
-![signin.png](signin.png)
+If your sign up is successful, you will be sent to the home page.
 ![home.png](home.png)
+You can also sign in by clicking on the 'Sign in' link if you've already made an account.
+![signin.png](signin.png)
+
