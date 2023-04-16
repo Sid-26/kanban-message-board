@@ -98,6 +98,7 @@ function setupSocket(){
     socket.addEventListener("message", (event) => {
         console.log(event.data)
         console.log("got message")
+        console(event.data.type)
         switch(event.data.type){
             case "new-card":
                 addCard(event.data.title,event.data.creator);
