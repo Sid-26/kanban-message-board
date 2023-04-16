@@ -1,5 +1,7 @@
 const socketUrl = "ws://localhost:8080/webboards-1.0-SNAPSHOT/ws"
 const baseUrl = "http://localhost:8080/webboards-1.0-SNAPSHOT"
+const loginUrl = "/login-servlet";
+const signupUrl = "/signup-servlet";
 // Create WebSocket connection.
 let socket;
 // const socket = new WebSocket(socketUrl);
@@ -14,7 +16,7 @@ function login() {
     };
     console.log(JSON.stringify(formData));
     // make API call
-    fetch(baseUrl+'/login-servlet', {
+    fetch(baseUrl+loginUrl, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -52,7 +54,7 @@ function signup() {
     };
 
     // make API call
-    fetch(baseUrl+'/signup-servlet', {
+    fetch(baseUrl+signupUrl, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

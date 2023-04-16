@@ -5,8 +5,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.json.HTTP;
-import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -49,7 +47,6 @@ public class LoginServlet extends HttpServlet {
         // json looks like {"user":"sid", "pwd": "ABC123"}
         String username = obj.getString("user");
         String password = obj.getString("pwd");
-        // to do create a Users class
         boolean loggedin = false;
         try{
             loggedin = Users.isValid(username, password);
