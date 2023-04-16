@@ -8,7 +8,7 @@ function setupAddCardBtn() {
     if(socket === undefined){
         console.error("No socket connection has been made: "+socket);
     }
-
+    console.log(socket.readyState);
     addCardBtn.addEventListener('click', () => {
         // Create a new card
         const newCard = document.createElement('div');
@@ -70,12 +70,12 @@ function setupAddCardBtn() {
             newCard.removeChild(cardTitleSubmitBtn);
 
             // Notify socket server
+            console.log(socket.readyState);
             socket.send({"type": "new-card", "title": cardTitle.textContent}.toString());
         };
         const deleteCard = (event) => {
             event.target.parentNode.remove();
         };
-
 
         cardTitleSubmitBtn.addEventListener('click', createCardTitle);
         cardTitleInput.addEventListener('keyup', (event) => {

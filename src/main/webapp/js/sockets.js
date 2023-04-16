@@ -88,11 +88,13 @@ function setupSocket(){
     // Connection opened
     socket.addEventListener("open", (event) => {
         console.log(event);
+        console.log(socket.readyState);
     });
 
 // Listen for messages (work in progress)
     socket.addEventListener("message", (event) => {
         console.log(event.data)
+        console.log("got message")
         switch(event.data.type){
             case "new-card":
                 addCard(event.data.title);
@@ -108,6 +110,7 @@ function setupSocket(){
                 break;
         }
     });
+    return socket;
 }
 
 

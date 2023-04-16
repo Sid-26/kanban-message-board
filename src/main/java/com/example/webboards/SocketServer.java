@@ -35,6 +35,7 @@ public class SocketServer {
 //        session.getBasicRemote().sendText(resp.toString());
 
         // return current state of board from file (single board)
+        session.getBasicRemote().sendText("Connection established");
         JSONObject resp = new JSONObject().put("board",singleBoard.toJSON());
         session.getBasicRemote().sendText(resp.toString());
     }
