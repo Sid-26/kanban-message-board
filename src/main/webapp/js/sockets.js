@@ -96,20 +96,30 @@ function setupSocket(){
 
 // Listen for messages (work in progress)
     socket.addEventListener("message", (event) => {
-        console.log(event.data)
+        console.log("Message: "+event.data);
         console.log("got message")
-        switch(event.data.type){
+        const data = JSON.parse(event.data);
+        console.log(data)
+        switch(data.type){
             case "new-card":
-                addCard(event.data.title,event.data.creator);
+                addCard(data.title,data.creator);
                 break;
             case "delete-card":
-                removeCard(event.data.card);
+                removeCard(data.card);
                 break;
             case "new-note":
-                addNote(event.data.card,event.data.creator);
+                addNote(data.card,data.creator);
                 break;
             case "delete-note":
-                removeNote(event.data.note,event.data.card);
+                removeNote(data.note,data.card);
+                break;
+            case "board":
+
+            case "error":
+                console.error(data.message);
+                break;
+            default:
+                console.error("It's over.");
                 break;
         }
     });
@@ -117,6 +127,7 @@ function setupSocket(){
 }
 
 function addCard(title,creator) {
+    console.log("Adding card...");
     // Create a new card
     const newCard = document.createElement('div');
     newCard.className = 'card';
@@ -147,12 +158,6 @@ function addCard(title,creator) {
 
     // Insert the card title into the new card
     newCard.insertBefore(cardTitle, deleteCardButton);
-
-    // Notify socket server
-    console.log(socket.readyState);
-    console.log(cardTitle.textContent)
-    console.log(JSON.stringify({"type": "new-card", "title": cardTitle.textContent,"creator": username}));
-    socket.send(JSON.stringify({"type": "new-card", "title": cardTitle.textContent,"creator": username}));
 
     const deleteCard = (event) => {
         let nodes = event.target.parentNode.parentNode.querySelectorAll(".card")

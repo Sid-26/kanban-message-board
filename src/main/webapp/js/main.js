@@ -73,9 +73,7 @@ function setupAddCardBtn() {
             newCard.removeChild(cardTitleSubmitBtn);
 
             // Notify socket server
-            console.log(socket.readyState);
-            console.log(cardTitle.textContent)
-            console.log(JSON.stringify({"type": "new-card", "title": cardTitle.textContent,"creator": username}));
+            console.log("Creating new card from command: "+JSON.stringify({"type": "new-card", "title": cardTitle.textContent,"creator": username}));
             socket.send(JSON.stringify({"type": "new-card", "title": cardTitle.textContent,"creator": username}));
         };
         const deleteCard = (event) => {
