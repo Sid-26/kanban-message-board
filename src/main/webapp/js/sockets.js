@@ -270,7 +270,7 @@ function addNote(title,card) {
 
 function removeNote(note, card){
     var cardList = document.querySelectorAll('.cards-container');
-    for (let i = 0; i < cardList; i++) {
+    for (let i = 0; i < cardList.length; i++) {
         if (i === card) {
             var card = cardList[i];
             for (let j = 0; j < card.length; j++) {
