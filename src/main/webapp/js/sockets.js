@@ -143,5 +143,16 @@ function addNote(title,cardPos) {
 }
 
 function removeNote(pos, cardPos){
+    var cardList = document.querySelectorAll('.cards-container');
 
+    for (let i = 0; i < cardList; i++) {
+        if (i === cardPos) {
+            var card = cardList[i];
+            for (let j = 0; j < card.length; j++) {
+                if (j === pos) {
+                    card[j].remove();
+                }
+            }
+        }
+    }
 }
