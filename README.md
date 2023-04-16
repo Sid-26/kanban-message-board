@@ -29,3 +29,5 @@ If your sign up is successful, you will be sent to the home page. On this page, 
 You can also sign in by clicking on the 'Sign in' link if you've already made an account.
 ![signin.png](signin.png)
 
+## External Resources
+For our project, the primary requirements were `jakarta` for websockets and `org.json` for interpreting JSON documents on the server end. The `pom.xml` file, which can be found in the main directory of the repository, contains a list of all the dependencies used in the project.
