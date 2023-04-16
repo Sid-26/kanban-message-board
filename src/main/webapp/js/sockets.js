@@ -116,12 +116,31 @@ function setupSocket(){
 }
 
 
-function addCard(title){
+function addCard(title) {
 
 }
 
-function removeCard(pos){}
+function removeCard(pos) {
+    var elems = document.querySelectorAll('.cards-container');
+    let count = 0;
+    // elems.forEach(function(elem) {
+    //     if (count === pos) {
+    //         elem.remove();
+    //     }
+    //     count++;
+    // });
+    for (let i = 0; i < elems.length; i++) {
+        if (i === pos) {
+            elems[i].remove();
+        }
+    }
 
-function addNote(title,cardPos){}
+}
 
-function removeNote(){}
+function addNote(title,cardPos) {
+
+}
+
+function removeNote(pos, cardPos){
+
+}
