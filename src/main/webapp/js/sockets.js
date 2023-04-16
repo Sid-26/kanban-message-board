@@ -85,7 +85,8 @@ function signup() {
         });
 }
 function setupSocket(){
-    socket = new WebSocket(socketUrl+`/${window.localStorage.getItem("username")}`);
+    username = window.localStorage.getItem("username");
+    socket = new WebSocket(socketUrl+`/${username}`);
 
     // Connection opened
     socket.addEventListener("open", (event) => {

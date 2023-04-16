@@ -8,6 +8,9 @@ function setupAddCardBtn() {
     if(socket === undefined){
         console.error("No socket connection has been made: "+socket);
     }
+    if(username===undefined){
+        console.error("No username: "+username);
+    }
     console.log(socket.readyState);
     addCardBtn.addEventListener('click', () => {
         // Create a new card
@@ -72,8 +75,8 @@ function setupAddCardBtn() {
             // Notify socket server
             console.log(socket.readyState);
             console.log(cardTitle.textContent)
-            console.log(JSON.stringify({"type": "new-card", "title": `${cardTitle.textContent}`}));
-            socket.send(JSON.stringify({"type": "new-card", "title": `${cardTitle.textContent}`}));
+            console.log(JSON.stringify({"type": "new-card", "title": cardTitle.textContent,"creator": username}));
+            socket.send(JSON.stringify({"type": "new-card", "title": cardTitle.textContent,"creator": username}));
         };
         const deleteCard = (event) => {
             let nodes = event.target.parentNode.querySelectorAll(".card")
