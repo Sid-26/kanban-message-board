@@ -1,5 +1,7 @@
 package com.example.util;
 
+import java.io.File;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -38,13 +40,27 @@ public class Board {
         return jsonToBoard(board);
     }
 
+    /**
+     * Single board case of loadBoard. File is assumed to contain a single board.
+     * @param resourceFile
+     * @return
+     */
+    public static Board loadBoard(String resourceFile){
+        String json = Loader.load(resourceFile);
+        JSONObject board = new JSONObject(json);
+        System.out.println(board);
+        return jsonToBoard(board);
+    }
+
     public static Board jsonToBoard(JSONObject board){
-        JSONArray cardsObj = board.getJSONArray("cards");
         ArrayList<Card> cards = new ArrayList<>();
-        if(cardsObj != null){
-            for(int i = 0; i < cardsObj.length(); i++){
-                JSONObject card = cardsObj.getJSONObject(i);
-                cards.add(Card.jsonToCard(card));
+        if(board.has("cards")){
+            JSONArray cardsObj = board.getJSONArray("cards");
+            if(cardsObj != null){
+                for(int i = 0; i < cardsObj.length(); i++){
+                    JSONObject card = cardsObj.getJSONObject(i);
+                    cards.add(Card.jsonToCard(card));
+                }
             }
         }
         return new Board(board.getString("title"), cards);

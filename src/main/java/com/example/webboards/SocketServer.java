@@ -13,26 +13,27 @@ import java.util.Map;
 @ServerEndpoint(value="/ws/{userId}")
 public class SocketServer {
     // Resource file names
-    private final String boardsFile = "boards.json";
+    private final String boardFile = "board.json";
 
     // for single-board test case
-    private final String singleBoardId = "board";
     private Board singleBoard = null;
     // session to userId
     private static Map<String,String> users = new HashMap<>();
     // userId to boardId
     // private static Map<String,String> usersBoards = new HashMap<>();
-    // private static Map<String,Board> boards = Board.loadAllBoards("boards.json");
+    // private static Map<String,Board> boards = Board.loadAllBoards("board.json");
     @OnOpen
     public void open(@PathParam("userId") String userId, Session session) throws IOException, URISyntaxException {
+        System.out.println("Connection established with user: "+userId);
+
         users.put(session.getId(), userId);
         if(singleBoard==null){
-            singleBoard=Board.loadBoard(boardsFile,singleBoardId);
+            singleBoard=Board.loadBoard(boardFile);
         }
 
 //        // Get all the user's boardIds and return them
 //        JSONObject resp = new JSONObject();
-//        JSONArray boardIds = (new JSONObject(Loader.load("users-boards.json")))
+//        JSONArray boardIds = (new JSONObject(Loader.load("users-board.json")))
 //                .getJSONArray(userId);
 //        resp.put("boards",boardIds);
 //        session.getBasicRemote().sendText(resp.toString());
@@ -50,6 +51,7 @@ public class SocketServer {
 
     @OnMessage
     public void message(String comm, Session session) throws IOException {
+        System.out.println(comm);
         JSONObject message = new JSONObject(comm);
         String type = message.getString("type");
         switch(type){
