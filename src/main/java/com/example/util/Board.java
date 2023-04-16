@@ -1,5 +1,7 @@
 package com.example.util;
 
+import java.io.File;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -44,7 +46,9 @@ public class Board {
      * @return
      */
     public static Board loadBoard(String resourceFile){
-        JSONObject board = new JSONObject(Loader.load(resourceFile));
+        String json = Loader.load(resourceFile);
+        JSONObject board = new JSONObject(json);
+        System.out.println(board);
         return jsonToBoard(board);
     }
 
