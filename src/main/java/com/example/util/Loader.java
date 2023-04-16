@@ -12,7 +12,7 @@ public class Loader {
         try {
             fileURI = Objects.requireNonNull(Loader.class
                     .getClassLoader()
-                    .getResource("boards.json"))
+                    .getResource("board.json"))
                     .toURI();
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
