@@ -1,4 +1,8 @@
-# w23-csci2020u-project-team08
-Hi!
+# Winter 2023 CSCI 2020U Systems Project Group 8
 
-This is Adam testing and pushing this time :o -- hey!
+## Developers:
+### David Houle-Tymeczko
+### Sheida Ebrahimi Siaghi 
+### Siddhant Das
+### Adam Orfao
+
