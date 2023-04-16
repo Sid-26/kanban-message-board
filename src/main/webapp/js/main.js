@@ -79,10 +79,10 @@ function setupAddCardBtn() {
             socket.send(JSON.stringify({"type": "new-card", "title": cardTitle.textContent,"creator": username}));
         };
         const deleteCard = (event) => {
-            let nodes = event.target.parentNode.querySelectorAll(".card")
+            let nodes = event.target.parentNode.parentNode.querySelectorAll(".card")
             for(let i = 0; i<nodes.length; i++){
-                if(nodes[i] === event.target){
-                    socket.send(JSON.stringify({"type":"delete-card","position":i}));
+                if(nodes[i] === event.target.parentNode){
+                    socket.send(JSON.stringify({"type":"delete-card","card":i}));
                 }
             }
             event.target.parentNode.remove();
