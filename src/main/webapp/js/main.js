@@ -74,6 +74,12 @@ function setupAddCardBtn() {
             socket.send({"type": "new-card", "title": cardTitle.textContent}.toString());
         };
         const deleteCard = (event) => {
+            let nodes = event.target.parentNode.querySelectorAll(".card")
+            for(let i = 0; i<nodes.length; i++){
+                if(nodes[i] === event.target){
+                    socket.send(JSON.stringify({"type":"delete-card","position":i}));
+                }
+            }
             event.target.parentNode.remove();
         };
 
