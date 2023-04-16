@@ -17,7 +17,7 @@ public class SocketServer {
 
     // for single-board test case
     private final String singleBoardId = "board";
-    private Board singleBoard = Board.loadBoard(boardsFile,singleBoardId);
+    private Board singleBoard = null;
     // session to userId
     private static Map<String,String> users = new HashMap<>();
     // userId to boardId
@@ -26,6 +26,9 @@ public class SocketServer {
     @OnOpen
     public void open(@PathParam("userId") String userId, Session session) throws IOException, URISyntaxException {
         users.put(session.getId(), userId);
+        if(singleBoard==null){
+            singleBoard=Board.loadBoard(boardsFile,singleBoardId);
+        }
 
 //        // Get all the user's boardIds and return them
 //        JSONObject resp = new JSONObject();
