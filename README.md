@@ -24,8 +24,10 @@
 ## How to use
 You will have to sign up by typing in a new username and password.
 ![signup.png](signup.png)
-If your sign up is successful, you will be sent to the home page. On this page, you can create cards by clicking on the 'Add a card' button. You can add a title and multiple messages to each card. You can also delete a message or card if you wish. If a different user joins, they will be able to see the changes to the message board once they log in.
+If your sign up is successful, you will be sent to the home page. 
 ![home.png](home.png)
+On this page, you can create cards by clicking on the 'Add a card' button. You can add a title and multiple messages to each card. You can also delete a message or card if you wish. If a different user joins, they will be able to see the changes to the message board once they log in.
+![example.png](example.png)
 You can also sign in by clicking on the 'Sign in' link if you've already made an account.
 ![signin.png](signin.png)
 
