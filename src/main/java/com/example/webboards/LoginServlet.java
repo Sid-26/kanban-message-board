@@ -19,7 +19,7 @@ public class LoginServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("application/json");
 
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
         String ln = null;
         // processing post request json
         try {
