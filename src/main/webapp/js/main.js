@@ -73,9 +73,7 @@ function setupAddCardBtn() {
             newCard.removeChild(cardTitleSubmitBtn);
 
             // Notify socket server
-            console.log(socket.readyState);
-            console.log(cardTitle.textContent)
-            console.log(JSON.stringify({"type": "new-card", "title": cardTitle.textContent,"creator": username}));
+            console.log("Creating new card from command: "+JSON.stringify({"type": "new-card", "title": cardTitle.textContent,"creator": username}));
             socket.send(JSON.stringify({"type": "new-card", "title": cardTitle.textContent,"creator": username}));
         };
         const deleteCard = (event) => {
@@ -151,6 +149,20 @@ function setupAddCardBtn() {
                 // Remove the message input and submit button
                 messageCard.removeChild(messageInput);
                 messageCard.removeChild(messageSubmitBtn);
+
+                // Notify the socket
+                let nodes = messageCard.parentNode.querySelectorAll(".card")
+                let sent = false;
+                let i;
+                for(i = 0; i<nodes.length; i++){
+                    if(nodes[i] === messageCard){
+                        socket.send(JSON.stringify({"text": message.textContent, "creator": username, "card":i}));
+                        sent = true;
+                    }
+                }
+                if(sent === false){
+                    console.error("Client failed to send command: create message in card "+i);
+                }
             };
 
             messageSubmitBtn.addEventListener('click', createMessage);
@@ -160,6 +172,14 @@ function setupAddCardBtn() {
                 }
             });
             const deleteMessage = (event) => {
+                // Sending to socket
+                let message = event.target.parentNode;
+                let nodes = message.parentNode;
+                for(let i = 0; i < nodes.length; i++){
+                    if(nodes[i] === message){
+                        socket.send(JSON.stringify({"note": i}))
+                    }
+                }
                 event.target.parentNode.remove();
             };
 

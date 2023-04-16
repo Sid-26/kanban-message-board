@@ -40,7 +40,9 @@ public class SocketServer {
 
         // return current state of board from file (single board)
         session.getBasicRemote().sendText("Connection established");
-        JSONObject resp = new JSONObject().put("board",singleBoard.toJSON());
+        JSONObject resp = new JSONObject()
+                .put("board",singleBoard.toJSON())
+                .put("type","board");
         session.getBasicRemote().sendText(resp.toString());
     }
 
@@ -83,7 +85,9 @@ public class SocketServer {
 
     public void messageAll(Session session,String message) throws IOException {
         for(Session peer : session.getOpenSessions()){
-            peer.getBasicRemote().sendText(message);
+            if(!peer.getId().equals(session.getId())){
+                peer.getBasicRemote().sendText(message);
+            }
         }
     }
 }

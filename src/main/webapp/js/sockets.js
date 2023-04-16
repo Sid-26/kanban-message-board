@@ -96,21 +96,30 @@ function setupSocket(){
 
 // Listen for messages (work in progress)
     socket.addEventListener("message", (event) => {
-        console.log(event.data)
+        console.log("Message: "+event.data);
         console.log("got message")
-        console(event.data.type)
-        switch(event.data.type){
+        const data = JSON.parse(event.data);
+        console.log(data)
+        switch(data.type){
             case "new-card":
-                addCard(event.data.title,event.data.creator);
+                addCard(data.title,data.creator);
                 break;
             case "delete-card":
-                removeCard(event.data.card);
+                removeCard(data.card);
                 break;
             case "new-note":
-                addNote(event.data.card,event.data.creator);
+                addNote(data.card,data.creator);
                 break;
             case "delete-note":
-                removeNote(event.data.note,event.data.card);
+                removeNote(data.note,data.card);
+                break;
+            case "board":
+
+            case "error":
+                console.error(data.message);
+                break;
+            default:
+                console.error("It's over.");
                 break;
         }
     });
@@ -118,131 +127,144 @@ function setupSocket(){
 }
 
 function addCard(title,creator) {
-    addCardBtn.addEventListener('click', () => {
-        // Create a new card
-        const newCard = document.createElement('div');
-        newCard.className = 'card';
-        newCard.id = 'title';
+    console.log("Adding card...");
+    // Create a new card
+    const newCard = document.createElement('div');
+    newCard.className = 'card';
+    newCard.id = 'title';
 
-        // Delete button
-        const deleteCardButton = document.createElement('button');
-        deleteCardButton.type = 'button';
-        deleteCardButton.className = 'add-message-btn';
-        deleteCardButton.textContent = 'Delete Card';
+    // Delete button
+    const deleteCardButton = document.createElement('button');
+    deleteCardButton.type = 'button';
+    deleteCardButton.className = 'add-message-btn';
+    deleteCardButton.textContent = 'Delete Card';
 
-        // Append delete button
-        newCard.appendChild(deleteCardButton);
+    // Append delete button
+    newCard.appendChild(deleteCardButton);
 
-        // Add the "Add Message" button to the new card
-        const addMessageBtn = document.createElement('button');
-        addMessageBtn.textContent = 'Add Message';
-        addMessageBtn.className = 'add-message-btn';
-        newCard.appendChild(addMessageBtn);
+    // Add the "Add Message" button to the new card
+    const addMessageBtn = document.createElement('button');
+    addMessageBtn.textContent = 'Add Message';
+    addMessageBtn.className = 'add-message-btn';
+    newCard.appendChild(addMessageBtn);
 
-        // Add the new card to the cards container
-        cardsContainer.insertBefore(newCard, addCardBtn);
+    // Add the new card to the cards container
+    cardsContainer.insertBefore(newCard, addCardBtn);
 
-        // When the user clicks the submit button or presses Enter, create the card title
-        const createCardTitle = () => {
-            // Create the card title
-            const cardTitle = document.createElement('div');
-            cardTitle.className = 'card-title';
-            cardTitle.textContent = title;
+    // Create the card title
+    const cardTitle = document.createElement('div');
+    cardTitle.className = 'card-title';
+    cardTitle.textContent = title;
 
-            // Insert the card title into the new card
-            newCard.insertBefore(cardTitle, deleteCardButton);
+    // Insert the card title into the new card
+    newCard.insertBefore(cardTitle, deleteCardButton);
 
-            // Notify socket server
-            console.log(socket.readyState);
-            console.log(cardTitle.textContent)
-            console.log(JSON.stringify({"type": "new-card", "title": cardTitle.textContent,"creator": username}));
-            socket.send(JSON.stringify({"type": "new-card", "title": cardTitle.textContent,"creator": username}));
+    const deleteCard = (event) => {
+        let nodes = event.target.parentNode.parentNode.querySelectorAll(".card")
+        for(let i = 0; i<nodes.length; i++){
+            if(nodes[i] === event.target.parentNode){
+                socket.send(JSON.stringify({"type":"delete-card","card":i}));
+            }
+        }
+        event.target.parentNode.remove();
+    };
+
+    deleteCardButton.addEventListener('click', deleteCard);
+    deleteCardButton.addEventListener('keyup', (event) => {
+        if (event.key === 'Enter') {
+            deleteCard(event);
+        }
+    });
+
+    // When the user clicks the "Add Message" button, create a message input box
+    addMessageBtn.addEventListener('click', () => {
+        // Create the message input box
+        const messageInput = document.createElement('input');
+        messageInput.type = 'text';
+        messageInput.placeholder = 'Add a message...';
+        messageInput.className = 'message-input';
+
+        // Create the message submit button
+        const messageSubmitBtn = document.createElement('button');
+        messageSubmitBtn.type = 'button';
+        messageSubmitBtn.textContent = 'Submit';
+        messageSubmitBtn.className = 'add-message-btn';
+
+        // Create the message delete button
+        const messageDeleteBtn = document.createElement('button');
+        messageDeleteBtn.type = 'button';
+        messageDeleteBtn.textContent = 'Delete Message';
+        messageDeleteBtn.className = 'add-message-btn';
+
+        // Create the message card
+        const messageCard = document.createElement('div');
+        messageCard.className = 'message-card';
+        messageCard.appendChild(messageInput);
+        messageCard.appendChild(messageSubmitBtn);
+        messageCard.appendChild(messageDeleteBtn);
+
+        // Add the message card to the card
+        newCard.appendChild(messageCard);
+        // Focus the message input box
+        messageInput.focus();
+
+        // When the user clicks the message submit button or presses Enter, create the message
+        const createMessage = () => {
+            // Check if the message input is empty
+            if (messageInput.value.trim() === '') {
+                messageInput.value = 'Empty Message';
+            }
+
+            // Create the message element
+            const message = document.createElement('div');
+            message.className = 'message';
+            message.textContent = messageInput.value;
+
+            // Insert the message into the message card
+            messageCard.insertBefore(message, messageInput);
+
+            // Remove the message input and submit button
+            messageCard.removeChild(messageInput);
+            messageCard.removeChild(messageSubmitBtn);
+
+            // Notify the socket
+            let nodes = messageCard.parentNode.querySelectorAll(".card")
+            let sent = false;
+            let i;
+            for(i = 0; i<nodes.length; i++){
+                if(nodes[i] === messageCard){
+                    socket.send(JSON.stringify({"text": message.textContent, "creator": username, "card":i}));
+                    sent = true;
+                }
+            }
+            if(sent === false){
+                console.error("Client failed to send command: create message in card "+i);
+            }
         };
-        const deleteCard = (event) => {
-            let nodes = event.target.parentNode.parentNode.querySelectorAll(".card")
-            for(let i = 0; i<nodes.length; i++){
-                if(nodes[i] === event.target.parentNode){
-                    socket.send(JSON.stringify({"type":"delete-card","card":i}));
+
+        messageSubmitBtn.addEventListener('click', createMessage);
+        messageInput.addEventListener('keyup', (event) => {
+            if (event.key === 'Enter') {
+                createMessage();
+            }
+        });
+        const deleteMessage = (event) => {
+            // Sending to socket
+            let message = event.target.parentNode;
+            let nodes = message.parentNode;
+            for(let i = 0; i < nodes.length; i++){
+                if(nodes[i] === message){
+                    socket.send(JSON.stringify({"note": i}))
                 }
             }
             event.target.parentNode.remove();
         };
 
-        deleteCardButton.addEventListener('click', deleteCard);
-        deleteCardButton.addEventListener('keyup', (event) => {
+        messageDeleteBtn.addEventListener('click', deleteMessage);
+        messageDeleteBtn.addEventListener('keyup', (event) => {
             if (event.key === 'Enter') {
-                deleteCard(event);
+                deleteMessage(event);
             }
-        });
-
-        // When the user clicks the "Add Message" button, create a message input box
-        addMessageBtn.addEventListener('click', () => {
-            // Create the message input box
-            const messageInput = document.createElement('input');
-            messageInput.type = 'text';
-            messageInput.placeholder = 'Add a message...';
-            messageInput.className = 'message-input';
-
-            // Create the message submit button
-            const messageSubmitBtn = document.createElement('button');
-            messageSubmitBtn.type = 'button';
-            messageSubmitBtn.textContent = 'Submit';
-            messageSubmitBtn.className = 'add-message-btn';
-
-            // Create the message delete button
-            const messageDeleteBtn = document.createElement('button');
-            messageDeleteBtn.type = 'button';
-            messageDeleteBtn.textContent = 'Delete Message';
-            messageDeleteBtn.className = 'add-message-btn';
-
-            // Create the message card
-            const messageCard = document.createElement('div');
-            messageCard.className = 'message-card';
-            messageCard.appendChild(messageInput);
-            messageCard.appendChild(messageSubmitBtn);
-            messageCard.appendChild(messageDeleteBtn);
-
-            // Add the message card to the card
-            newCard.appendChild(messageCard);
-            // Focus the message input box
-            messageInput.focus();
-
-            // When the user clicks the message submit button or presses Enter, create the message
-            const createMessage = () => {
-                // Check if the message input is empty
-                if (messageInput.value.trim() === '') {
-                    messageInput.value = 'Empty Message';
-                }
-
-                // Create the message element
-                const message = document.createElement('div');
-                message.className = 'message';
-                message.textContent = messageInput.value;
-
-                // Insert the message into the message card
-                messageCard.insertBefore(message, messageInput);
-
-                // Remove the message input and submit button
-                messageCard.removeChild(messageInput);
-                messageCard.removeChild(messageSubmitBtn);
-            };
-
-            messageSubmitBtn.addEventListener('click', createMessage);
-            messageInput.addEventListener('keyup', (event) => {
-                if (event.key === 'Enter') {
-                    createMessage();
-                }
-            });
-            const deleteMessage = (event) => {
-                event.target.parentNode.remove();
-            };
-
-            messageDeleteBtn.addEventListener('click', deleteMessage);
-            messageDeleteBtn.addEventListener('keyup', (event) => {
-                if (event.key === 'Enter') {
-                    deleteMessage(event);
-                }
-            });
         });
     });
 }
