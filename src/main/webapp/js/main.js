@@ -71,7 +71,9 @@ function setupAddCardBtn() {
 
             // Notify socket server
             console.log(socket.readyState);
-            socket.send(JSON.stringify({"type": "new-card", "title": cardTitle.textContent}));
+            console.log(cardTitle.textContent)
+            console.log(JSON.stringify({"type": "new-card", "title": `${cardTitle.textContent}`}));
+            socket.send(JSON.stringify({"type": "new-card", "title": `${cardTitle.textContent}`}));
         };
         const deleteCard = (event) => {
             let nodes = event.target.parentNode.querySelectorAll(".card")
