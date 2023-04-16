@@ -100,16 +100,16 @@ function setupSocket(){
         console.log("got message")
         switch(event.data.type){
             case "new-card":
-                addCard(event.data.title);
+                addCard(event.data.title,event.data.creator);
                 break;
             case "delete-card":
-                removeCard(event.data.position);
+                removeCard(event.data.card);
                 break;
             case "new-note":
-                addNote(event.data.position,event.data.card);
+                addNote(event.data.card,event.data.creator);
                 break;
             case "delete-note":
-                removeNote(pos,cardPos);
+                removeNote(event.data.note,event.data.card);
                 break;
         }
     });
@@ -117,11 +117,11 @@ function setupSocket(){
 }
 
 
-function addCard(title) {
+function addCard(title,creator) {
 
 }
 
-function removeCard(pos) {
+function removeCard(card) {
     var elems = document.querySelectorAll('.cards-container');
     let count = 0;
     // elems.forEach(function(elem) {
@@ -138,10 +138,10 @@ function removeCard(pos) {
 
 }
 
-function addNote(title,cardPos) {
+function addNote(title,card) {
 
 }
 
-function removeNote(pos, cardPos){
+function removeNote(note, card){
 
 }
