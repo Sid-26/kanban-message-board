@@ -160,6 +160,7 @@ function addCard(title,creator) {
     newCard.insertBefore(cardTitle, deleteCardButton);
 
     const deleteCard = (event) => {
+        console.log("deleting from a socket card")
         let nodes = event.target.parentNode.parentNode.querySelectorAll(".card")
         for(let i = 0; i<nodes.length; i++){
             if(nodes[i] === event.target.parentNode){
@@ -270,20 +271,13 @@ function addCard(title,creator) {
 }
 
 function removeCard(card) {
-    var elems = document.querySelectorAll('.cards-container');
-    let count = 0;
-    // elems.forEach(function(elem) {
-    //     if (count === pos) {
-    //         elem.remove();
-    //     }
-    //     count++;
-    // });
+    const elems = document.getElementsByClassName('cards-container')[0]
+        .getElementsByClassName('card');
     for (let i = 0; i < elems.length; i++) {
         if (i === card) {
-            elems[i].remove();
+            elems.item(i).remove();
         }
     }
-
 }
 
 function addNote(title,card) {

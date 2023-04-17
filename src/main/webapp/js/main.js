@@ -73,7 +73,7 @@ function setupAddCardBtn() {
             newCard.removeChild(cardTitleSubmitBtn);
 
             // Notify socket server
-            console.log("Creating new card from command: "+JSON.stringify({"type": "new-card", "title": cardTitle.textContent,"creator": username}));
+            console.log("Sending create instructions: "+JSON.stringify({"type": "new-card", "title": cardTitle.textContent,"creator": username}));
             socket.send(JSON.stringify({"type": "new-card", "title": cardTitle.textContent,"creator": username}));
         };
         const deleteCard = (event) => {
@@ -191,4 +191,8 @@ function setupAddCardBtn() {
             });
         });
     });
+}
+
+function setupCard(){
+
 }
