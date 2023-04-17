@@ -111,10 +111,10 @@ function setupSocket(){
                 addNote(data.text,data.card,data.creator);
                 break;
             case "delete-note":
-                removeNote(data.note,data.card);
+                removeNote(parseInt(data.note),parseInt(data.card));
                 break;
             case "board":
-
+                break;
             case "error":
                 console.error(data.message);
                 break;
@@ -242,31 +242,9 @@ function addCard(title,creator) {
                 createMessage();
             }
         });
-        const deleteMessage = (event) => {
-            // Notify the socket
-            let sent = false;
-            const parentCard = messageCard.parentNode;
-            const cards = parentCard.parentNode.querySelectorAll(".card");
-            let i,j;
-            for(i = 0; i<cards.length; i++){
-                if(cards.item(i) === parentCard){
-                    const messages = parentCard.querySelectorAll(".message-card");
-                    for(j=0; j<messages.length; j++){
-                        if(messages.item(j) === messageCard){
-                            socket.send(JSON.stringify({"type":"delete-note","card":i,"note":j}));
-                            sent = true;
-                        }
-                    }
-                }
-            }
-            if(sent === false){
-                console.error("Client failed to send command: delete message in card");
-            }
 
-            event.target.parentNode.remove();
-        };
-
-        messageDeleteBtn.addEventListener('click', deleteMessage);
+        messageDeleteBtn.addEventListener('click',
+            (event)=>deleteMessage(event,messageCard));
         messageDeleteBtn.addEventListener('keyup', (event) => {
             if (event.key === 'Enter') {
                 deleteMessage(event);
@@ -307,26 +285,13 @@ function addNote(text,card,creator) {
     // Add the message card to the card
     targetCard.appendChild(messageCard);
 
-    const deleteMessage = (event) => {
-        // Sending to socket
-        let message = event.target.parentNode;
-        let nodes = message.parentNode;
-        for(let i = 0; i < nodes.length; i++){
-            if(nodes[i] === message){
-                socket.send(JSON.stringify({"note": i}))
-            }
-        }
-        event.target.parentNode.remove();
-    };
-
-    messageDeleteBtn.addEventListener('click', deleteMessage);
+    messageDeleteBtn.addEventListener('click', (event)=>deleteMessage(event,messageCard));
     messageDeleteBtn.addEventListener('keyup', (event) => {
         if (event.key === 'Enter') {
             deleteMessage(event);
         }
     });
 }
-
 
 function removeNote(note, card){
     const cardList = document.getElementsByClassName("cards-container")[0]
