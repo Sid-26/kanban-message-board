@@ -1,9 +1,6 @@
 package com.example.util;
 
 import java.io.*;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.Objects;
 
 public class Loader {
     // Source: https://kodejava.org/how-do-i-read-json-file-using-json-java-org-json-library/

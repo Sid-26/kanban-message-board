@@ -5,10 +5,13 @@ import jakarta.websocket.server.ServerEndpoint;
 import org.json.*;
 import com.example.util.*;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 @ServerEndpoint(value="/ws/{userId}")
 public class SocketServer {
@@ -47,8 +50,15 @@ public class SocketServer {
     }
 
     @OnClose
-    public void close(Session session){
-
+    public void close(Session session) throws FileNotFoundException {
+        users.remove(session.getId());
+        if(users.isEmpty()){
+            String path = Objects.requireNonNull(this.getClass()
+                    .getClassLoader()
+                    .getResource(boardFile))
+                    .toString();
+            PrintWriter out = new PrintWriter(path);
+        }
     }
 
     @OnMessage
