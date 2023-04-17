@@ -159,16 +159,6 @@ function addCard(title,creator) {
     // Insert the card title into the new card
     newCard.insertBefore(cardTitle, deleteCardButton);
 
-    const deleteCard = (event) => {
-        let nodes = event.target.parentNode.parentNode.querySelectorAll(".card")
-        for(let i = 0; i<nodes.length; i++){
-            if(nodes[i] === event.target.parentNode){
-                socket.send(JSON.stringify({"type":"delete-card","card":i}));
-            }
-        }
-        event.target.parentNode.remove();
-    };
-
     deleteCardButton.addEventListener('click', deleteCard);
     deleteCardButton.addEventListener('keyup', (event) => {
         if (event.key === 'Enter') {
@@ -270,20 +260,13 @@ function addCard(title,creator) {
 }
 
 function removeCard(card) {
-    var elems = document.querySelectorAll('.cards-container');
-    let count = 0;
-    // elems.forEach(function(elem) {
-    //     if (count === pos) {
-    //         elem.remove();
-    //     }
-    //     count++;
-    // });
+    const elems = document.getElementsByClassName('cards-container')[0]
+        .getElementsByClassName('card');
     for (let i = 0; i < elems.length; i++) {
         if (i === card) {
-            elems[i].remove();
+            elems.item(i).remove();
         }
     }
-
 }
 
 function addNote(title,card) {

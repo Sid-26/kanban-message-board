@@ -73,17 +73,8 @@ function setupAddCardBtn() {
             newCard.removeChild(cardTitleSubmitBtn);
 
             // Notify socket server
-            console.log("Creating new card from command: "+JSON.stringify({"type": "new-card", "title": cardTitle.textContent,"creator": username}));
+            console.log("Sending create instructions: "+JSON.stringify({"type": "new-card", "title": cardTitle.textContent,"creator": username}));
             socket.send(JSON.stringify({"type": "new-card", "title": cardTitle.textContent,"creator": username}));
-        };
-        const deleteCard = (event) => {
-            let nodes = event.target.parentNode.parentNode.querySelectorAll(".card")
-            for(let i = 0; i<nodes.length; i++){
-                if(nodes[i] === event.target.parentNode){
-                    socket.send(JSON.stringify({"type":"delete-card","card":i}));
-                }
-            }
-            event.target.parentNode.remove();
         };
 
         cardTitleSubmitBtn.addEventListener('click', createCardTitle);
@@ -192,3 +183,15 @@ function setupAddCardBtn() {
         });
     });
 }
+
+const deleteCard = (event) => {
+    let nodes = event.target.parentNode.parentNode.querySelectorAll(".card")
+    for(let i = 0; i<nodes.length; i++){
+        if(nodes[i] === event.target.parentNode){
+            let request = JSON.stringify({"type":"delete-card","card":i});
+            console.log("Sending instructions: " + request);
+            socket.send(request);
+        }
+    }
+    event.target.parentNode.remove();
+};
