@@ -24,16 +24,16 @@
 9. If the webpage doesn't launch, you can simply access the link above in your preferred browser
 
 ## How to use
-You will have to sign up by typing in a new username and password.
+#### You will have to sign up by typing in a new username and password.
 ![signup.png](signup.png)
 
-If your sign up is successful, you will be sent to the home page. 
+#### If your sign up is successful, you will be sent to the home page. 
 ![home.png](home.png)
 
-Once you're on the home page, you can create cards by clicking on the 'Add a card' button. Each card can have a title and as many attached messages as you'd like. You can also delete a message or card once you're done with it. If a different user joins, they will be able to see all of the changes to the shared message board once they log in.
+#### Once you're on the home page, you can create cards by clicking on the 'Add a card' button. Each card can have a title and as many attached messages as you'd like. You can also delete a message or card once you're done with it. If a different user joins, they will be able to see all of the changes to the shared message board once they log in.
 ![example.png](example.png)
 
-If you're coming back to the website, you can always sign in using your previous credentials - just select the 'Sign in' button!
+#### If you're coming back to the website, you can always sign in using your previous credentials - just select the 'Sign in' button!
 ![signin.png](signin.png)
 
 ## External Resources
