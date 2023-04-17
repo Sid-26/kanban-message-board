@@ -1,35 +1,36 @@
 # Winter 2023 CSCI 2020U Systems Project Group 8
 
 ## Developers:
-* #### David Houle-Tymeczko
-* #### Sheida Ebrahimi Siaghi 
 * #### Siddhant Das
+* #### Sheida Ebrahimi Siaghi 
+* #### David Houle-Tymeczko
 * #### Adam Orfao
 
 ## Requirements
 * #### Intellij IDEA
-* #### GlassFish 7.0.0
+* #### GlassFish 7.0.x
 
 ## How to run
 
-1. Clone this repository on your device
+1. Clone this repository on your device ```git clone https://github.com/OntarioTech-CS-program/w23-csci2020u-project-team08#winter-2023-csci-2020u-systems-project-group-8```
 2. Open the repository using Intellij
-3. On the top right menu, click on 'Configurations' and then 'Edit configurations'
+3. On the top right menu, next to the run button, click on 'Configurations' and then 'Edit configurations'
 4. Click on 'Add configuration' then select Glassfish with a local server
-5. Add 'domain1' on the 'Server Domain' box
-6. On the Deployment tab click on the plus sign and add 'webboards: war exploded'
-7. Click 'OK' and then click on the green arrow to run the server
+5. Add 'domain1' - or your default domain - on the 'Server Domain' box
+6. Switch to the Deployment tab, and click on the plus, then 'add artifact'. From there, add 'webboards: war exploded'
+7. Click 'Apply', and then 'OK' and then click on the green arrow to run the server
 8. An HTML webpage will be loaded on your browser with the URL: <http://localhost:8080/webboards-1.0-SNAPSHOT/>
+9. If the webpage doesn't launch, you can simply access the link above in your preferred browser
 
 ## How to use
 You will have to sign up by typing in a new username and password.
 ![signup.png](signup.png)
 If your sign up is successful, you will be sent to the home page. 
 ![home.png](home.png)
-On this page, you can create cards by clicking on the 'Add a card' button. You can add a title and multiple messages to each card. You can also delete a message or card if you wish. If a different user joins, they will be able to see the changes to the message board once they log in.
+Once you're on the home page, you can create cards by clicking on the 'Add a card' button. Each card can have a title and as many attached messages as you'd like. You can also delete a message or card once you're done with it. If a different user joins, they will be able to see all of the changes to the shared message board once they log in.
 ![example.png](example.png)
-You can also sign in by clicking on the 'Sign in' link if you've already made an account.
+If you're coming back to the website, you can always sign in using your previous credentials - just select the 'Sign in' button!
 ![signin.png](signin.png)
 
 ## External Resources
-For our project, the primary requirements were `jakarta` for websockets and `org.json` for interpreting JSON documents on the server end. The `pom.xml` file, which can be found in the main directory of the repository, contains a list of all the dependencies used in the project.
+For our project, the primary requirements were `jakarta` for websockets and `org.json` for interpreting JSON documents on the server end. The `pom.xml` file, found in the main directory of the repository, contains a list of all the dependencies used in the project.
