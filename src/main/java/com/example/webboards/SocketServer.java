@@ -52,13 +52,6 @@ public class SocketServer {
     @OnClose
     public void close(Session session) throws FileNotFoundException {
         users.remove(session.getId());
-        if(users.isEmpty()){
-            String path = Objects.requireNonNull(this.getClass()
-                    .getClassLoader()
-                    .getResource(boardFile))
-                    .toString();
-            PrintWriter out = new PrintWriter(path);
-        }
     }
 
     @OnMessage
