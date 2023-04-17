@@ -2,9 +2,9 @@
 
 ## Developers:
 * #### Siddhant Das - ID: 100830959
-* #### Sheida Ebrahimi Siaghi 
-* #### David Houle-Tymeczko
-* #### Adam Orfao
+* #### Sheida Ebrahimi Siaghi - ID: 100840009
+* #### David Houle-Tymeczko - ID: 100816849
+* #### Adam Orfao 
 
 ## Requirements
 * #### Intellij IDEA
