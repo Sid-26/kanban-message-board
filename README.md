@@ -1,4 +1,3 @@
-{::options auto_ids="false" /}
 # Winter 2023 CSCI 2020U Systems Project Group 8
 
 ## Developers:
