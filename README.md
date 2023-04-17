@@ -1,5 +1,8 @@
 # Winter 2023 CSCI 2020U Systems Project Group 8
 
+## Video link:
+https://drive.google.com/drive/folders/1aZ0_5oTF9cQ9LL2iFsQADtTWJ7rYhSs3?usp=sharing
+
 ## Developers:
 * #### Siddhant Das - ID: 100830959
 * #### Sheida Ebrahimi Siaghi - ID: 100840009
