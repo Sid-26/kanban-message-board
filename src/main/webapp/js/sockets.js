@@ -251,7 +251,7 @@ function addCard(title,creator) {
             for(i = 0; i<cards.length; i++){
                 if(cards.item(i) === parentCard){
                     const messages = parentCard.querySelectorAll(".message-card");
-                    for(j=0; j<messages; j++){
+                    for(j=0; j<messages.length; j++){
                         if(messages.item(j) === messageCard){
                             socket.send(JSON.stringify({"type":"delete-note","card":i,"note":j}));
                             sent = true;
@@ -260,7 +260,7 @@ function addCard(title,creator) {
                 }
             }
             if(sent === false){
-                console.error("Client failed to send command: delete message in note,card: "+j+','+i);
+                console.error("Client failed to send command: delete message in card");
             }
 
             event.target.parentNode.remove();
