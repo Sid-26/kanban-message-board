@@ -21,6 +21,7 @@ public class Board {
         this.cards.add(card);
     }
 
+    // Convert Board object to JSONObject
     public JSONObject toJSON(){
         JSONObject board = new JSONObject();
         board.put("title",this.title);
@@ -52,6 +53,7 @@ public class Board {
         return jsonToBoard(board);
     }
 
+    // Convert JSONObject into an instance of Board
     public static Board jsonToBoard(JSONObject board){
         ArrayList<Card> cards = new ArrayList<>();
         if(board.has("cards")){
