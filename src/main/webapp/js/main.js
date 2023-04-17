@@ -142,12 +142,16 @@ function setupAddCardBtn() {
                 messageCard.removeChild(messageSubmitBtn);
 
                 // Notify the socket
-                let nodes = messageCard.parentNode.querySelectorAll(".card")
                 let sent = false;
+                const parentCard = messageCard.parentNode;
+                const cards = parentCard.parentNode.querySelectorAll(".card");
                 let i;
-                for(i = 0; i<nodes.length; i++){
-                    if(nodes[i] === messageCard){
-                        socket.send(JSON.stringify({"text": message.textContent, "creator": username, "card":i}));
+                for(i = 0; i<cards.length; i++){
+                    if(cards.item(i) === parentCard){
+                        socket.send(JSON.stringify({"type":"new-note",
+                            "text": message.textContent,
+                            "creator": username,
+                            "card":i}));
                         sent = true;
                     }
                 }
@@ -162,19 +166,9 @@ function setupAddCardBtn() {
                     createMessage();
                 }
             });
-            const deleteMessage = (event) => {
-                // Sending to socket
-                let message = event.target.parentNode;
-                let nodes = message.parentNode;
-                for(let i = 0; i < nodes.length; i++){
-                    if(nodes[i] === message){
-                        socket.send(JSON.stringify({"note": i}))
-                    }
-                }
-                event.target.parentNode.remove();
-            };
 
-            messageDeleteBtn.addEventListener('click', deleteMessage);
+            messageDeleteBtn.addEventListener('click',
+                (event)=>deleteMessage(event,messageCard));
             messageDeleteBtn.addEventListener('keyup', (event) => {
                 if (event.key === 'Enter') {
                     deleteMessage(event);
@@ -193,5 +187,29 @@ const deleteCard = (event) => {
             socket.send(request);
         }
     }
+    event.target.parentNode.remove();
+};
+
+const deleteMessage = (event,messageCard) => {
+    // Notify the socket
+    let sent = false;
+    const parentCard = messageCard.parentNode;
+    const cards = parentCard.parentNode.querySelectorAll(".card");
+    let i,j;
+    for(i = 0; i<cards.length; i++){
+        if(cards.item(i) === parentCard){
+            const messages = parentCard.querySelectorAll(".message-card");
+            for(j=0; j<messages.length; j++){
+                if(messages.item(j) === messageCard){
+                    socket.send(JSON.stringify({"type":"delete-note","card":i,"note":j}));
+                    sent = true;
+                }
+            }
+        }
+    }
+    if(sent === false){
+        console.error("Client failed to send command: delete message in note");
+    }
+
     event.target.parentNode.remove();
 };

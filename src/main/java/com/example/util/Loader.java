@@ -19,6 +19,8 @@ public class Loader {
         }
         return resultStringBuilder.toString();
     }
+
+    // Read the specified file in resources and return its contents as String
     public static String load(String resourceFile) {
         String data;
         try {
