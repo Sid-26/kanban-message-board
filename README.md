@@ -2,7 +2,7 @@
 
 ## Developers:
 * #### Siddhant Das - ID: 100830959
-* #### Sheida Ebrahimi Siaghi 
+* #### Sheida Ebrahimi Siaghi - ID: 100840009
 * #### David Houle-Tymeczko
 * #### Adam Orfao
 
