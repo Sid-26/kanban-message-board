@@ -108,7 +108,7 @@ function setupSocket(){
                 removeCard(data.card);
                 break;
             case "new-note":
-                addNote(data.card,data.creator);
+                addNote(data.text,data.card,data.creator);
                 break;
             case "delete-note":
                 removeNote(data.note,data.card);
@@ -218,12 +218,16 @@ function addCard(title,creator) {
             messageCard.removeChild(messageSubmitBtn);
 
             // Notify the socket
-            let nodes = messageCard.parentNode.querySelectorAll(".card")
             let sent = false;
+            const parentCard = messageCard.parentNode;
+            const cards = parentCard.parentNode.querySelectorAll(".card");
             let i;
-            for(i = 0; i<nodes.length; i++){
-                if(nodes[i] === messageCard){
-                    socket.send(JSON.stringify({"text": message.textContent, "creator": username, "card":i}));
+            for(i = 0; i<cards.length; i++){
+                if(cards.item(i) === parentCard){
+                    socket.send(JSON.stringify({"type":"new-note",
+                        "text": message.textContent,
+                        "creator": username,
+                        "card":i}));
                     sent = true;
                 }
             }
@@ -239,14 +243,26 @@ function addCard(title,creator) {
             }
         });
         const deleteMessage = (event) => {
-            // Sending to socket
-            let message = event.target.parentNode;
-            let nodes = message.parentNode;
-            for(let i = 0; i < nodes.length; i++){
-                if(nodes[i] === message){
-                    socket.send(JSON.stringify({"note": i}))
+            // Notify the socket
+            let sent = false;
+            const parentCard = messageCard.parentNode;
+            const cards = parentCard.parentNode.querySelectorAll(".card");
+            let i,j;
+            for(i = 0; i<cards.length; i++){
+                if(cards.item(i) === parentCard){
+                    const messages = parentCard.querySelectorAll(".message-card");
+                    for(j=0; j<messages; j++){
+                        if(messages.item(j) === messageCard){
+                            socket.send(JSON.stringify({"type":"delete-note","card":i,"note":j}));
+                            sent = true;
+                        }
+                    }
                 }
             }
+            if(sent === false){
+                console.error("Client failed to send command: delete message in note,card: "+j+','+i);
+            }
+
             event.target.parentNode.remove();
         };
 
@@ -262,28 +278,60 @@ function addCard(title,creator) {
 function removeCard(card) {
     const elems = document.getElementsByClassName('cards-container')[0]
         .getElementsByClassName('card');
-    for (let i = 0; i < elems.length; i++) {
-        if (i === card) {
-            elems.item(i).remove();
-        }
-    }
+    elems.item(card).remove();
 }
 
-function addNote(title,card) {
+function addNote(text,card,creator) {
+    const targetCard = document.getElementsByClassName("cards-container")[0]
+        .getElementsByClassName("card")[card];
 
+    // Create the message delete button
+    const messageDeleteBtn = document.createElement('button');
+    messageDeleteBtn.type = 'button';
+    messageDeleteBtn.textContent = 'Delete Message';
+    messageDeleteBtn.className = 'add-message-btn';
+
+    // Create the message card
+    const messageCard = document.createElement('div');
+    messageCard.className = 'message-card';
+
+    // Create the message element
+    const message = document.createElement('div');
+    message.className = 'message';
+    message.textContent = text;
+
+    // Insert the message into the message card
+    messageCard.appendChild(message);
+    messageCard.appendChild(messageDeleteBtn);
+
+    // Add the message card to the card
+    targetCard.appendChild(messageCard);
+
+    const deleteMessage = (event) => {
+        // Sending to socket
+        let message = event.target.parentNode;
+        let nodes = message.parentNode;
+        for(let i = 0; i < nodes.length; i++){
+            if(nodes[i] === message){
+                socket.send(JSON.stringify({"note": i}))
+            }
+        }
+        event.target.parentNode.remove();
+    };
+
+    messageDeleteBtn.addEventListener('click', deleteMessage);
+    messageDeleteBtn.addEventListener('keyup', (event) => {
+        if (event.key === 'Enter') {
+            deleteMessage(event);
+        }
+    });
 }
 
 
 function removeNote(note, card){
-    var cardList = document.querySelectorAll('.cards-container');
-    for (let i = 0; i < cardList.length; i++) {
-        if (i === card) {
-            var card = cardList[i];
-            for (let j = 0; j < card.length; j++) {
-                if (j === note) {
-                    card[j].remove();
-                }
-            }
-        }
-    }
+    const cardList = document.getElementsByClassName("cards-container")[0]
+        .getElementsByClassName("card");
+    let targetCard = cardList.item(card);
+    const messages = targetCard.getElementsByClassName("message-card");
+    messages.item(note).remove();
 }
