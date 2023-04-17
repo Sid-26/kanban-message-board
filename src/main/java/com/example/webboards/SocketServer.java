@@ -65,13 +65,13 @@ public class SocketServer {
                 break;
             // create new note
             case "new-note":
-                singleBoard.getCards().get(message.getInt("card"))
-                        .addNote(new Note(message.getString("text"),message.getString("creator")));
+//                singleBoard.getCards().get(message.getInt("card"))
+//                        .addNote(new Note(message.getString("text"),message.getString("creator")));
                 messageAll(session, message.toString());
                 break;
             // delete note with index
             case "delete-note":
-                singleBoard.getCards().get(message.getInt("card")).deleteNote(message.getInt("note"));
+//                singleBoard.getCards().get(message.getInt("card")).deleteNote(message.getInt("note"));
                 messageAll(session, message.toString());
                 break;
             // delete card with index
