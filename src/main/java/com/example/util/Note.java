@@ -12,6 +12,7 @@ public class Note {
         this.creator = creator;
     }
 
+    // Convert JSONObject to an instance of Note
     public static Note jsonToNote(JSONObject note){
         Note msg = null;
         try {

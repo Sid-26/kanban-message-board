@@ -3,9 +3,8 @@ package com.example.util;
 import java.util.HashMap;
 
 public class Users {
-    protected static HashMap<String, String> accounts = new HashMap<>() {{
-        put("admin","admin");
-    }};
+    // Keeps track of users entered into the system
+    protected static HashMap<String, String> accounts = new HashMap<>();
 
     public static boolean createAccount(String username, String password) throws RuntimeException {
         if (!(username.equals("") || password.equals(""))) {
@@ -15,7 +14,7 @@ public class Users {
             throw new RuntimeException();
         }
     }
-    // .get(username) = "pickachu", String password = pickachu, .get(username) = password
+    // Checks if user, passsword combo is an existing entry in the system
     public static boolean isValid(String username, String password) {
         String pwd = accounts.get(username);
         if(pwd == null){

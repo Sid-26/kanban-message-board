@@ -16,6 +16,7 @@ public class Card {
         this.creator = creator;
     }
 
+    // Convert JSONObject to an instance of Card
     public static Card jsonToCard(JSONObject card){
         ArrayList<Note> notes = new ArrayList<>();
         // Check if the JSONObject has a list of notes
