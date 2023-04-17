@@ -159,17 +159,6 @@ function addCard(title,creator) {
     // Insert the card title into the new card
     newCard.insertBefore(cardTitle, deleteCardButton);
 
-    const deleteCard = (event) => {
-        console.log("deleting from a socket card")
-        let nodes = event.target.parentNode.parentNode.querySelectorAll(".card")
-        for(let i = 0; i<nodes.length; i++){
-            if(nodes[i] === event.target.parentNode){
-                socket.send(JSON.stringify({"type":"delete-card","card":i}));
-            }
-        }
-        event.target.parentNode.remove();
-    };
-
     deleteCardButton.addEventListener('click', deleteCard);
     deleteCardButton.addEventListener('keyup', (event) => {
         if (event.key === 'Enter') {

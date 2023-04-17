@@ -59,7 +59,8 @@ public class SocketServer {
         switch(type){
             // Create new card
             case "new-card":
-                singleBoard.addCard(Card.jsonToCard(message));
+                System.out.println("Added card: " + comm);
+                //singleBoard.addCard(Card.jsonToCard(message));
                 messageAll(session,message.toString());
                 break;
             // create new note
@@ -75,7 +76,9 @@ public class SocketServer {
                 break;
             // delete card with index
             case "delete-card":
-                singleBoard.getCards().remove(message.getInt("card"));
+                System.out.println("Deleting card: "+comm);
+                //singleBoard.getCards().remove(message.getInt("card"));
+                //System.out.println("New cards list: " + singleBoard.getCards().toString());
                 messageAll(session, message.toString());
                 break;
             default:
