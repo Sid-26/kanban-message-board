@@ -1,13 +1,14 @@
-# Winter 2023 CSCI 2020U Systems Project Group 8
+# Winter 2023 CSCI 2020U Systems Project
+###### *This was a university project, copying code not allowed*
 
 ## Video link:
 https://shorturl.at/dhny1
 
 ## Developers:
-* #### Siddhant Das - ID: 100830959
-* #### Sheida Ebrahimi Siaghi - ID: 100840009
-* #### David Houle-Tymeczko - ID: 100816849
-* #### Adam Orfao - ID: 100821735
+* #### [Siddhant Das](https://github.com/Sid-26)
+* #### [Sheida Ebrahimi Siaghi](https://github.com/Sheida-Ebrahimi) 
+* #### [David Houle-Tymeczko](https://github.com/DavidHTwastaken)
+* #### [Adam Orfao](https://github.com/oadam03)
 
 ## Requirements
 * #### Intellij IDEA
