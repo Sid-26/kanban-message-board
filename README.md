@@ -1,5 +1,5 @@
 # Winter 2023 CSCI 2020U Systems Project
-###### *This was a university project, copying code not allowed*
+###### *This was a university project, copying code line by line highly not recommended*
 
 # Video Demonstration link:
 https://shorturl.at/dhny1
