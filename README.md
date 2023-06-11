@@ -1,4 +1,5 @@
 # Winter 2023 CSCI 2020U Systems Project
+This is a kanban-style message board (like trello) with an REST API and multi-threaded client support.
 ###### *This was a university project, copying code line by line highly not recommended*
 
 # Video Demonstration link:
