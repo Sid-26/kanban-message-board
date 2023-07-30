@@ -3,7 +3,7 @@ This is a kanban-style message board (like trello) with an REST API and multi-th
 ###### *This was a university project, copying code line by line highly not recommended*
 
 # Video Demonstration link:
-https://shorturl.at/dhny1
+[Video](https://drive.google.com/file/d/19eqfYd9F9yesTnbcnGccNJKZSgimXL1h/view)
 
 ## Developers:
 * #### [Siddhant Das](https://github.com/Sid-26)
